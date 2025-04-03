@@ -22,7 +22,7 @@ const UserCard:React.FC<UserCard>=({FirstName,LastName,email,dob,status})=>{
     const day = dob.getDate();
     const formattedDob = `${year}-${month}-${day}`;
     return(
-        <div className='bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start h-[235px] w-[425px]'>
+        <div className='bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start'>
             <UserInitial FirstName={FirstName} LastName={LastName}/>
             <h1 className="font-semibold text-2xl text-black-500">{FirstName} {LastName}</h1>
             <span className={font}>Email: {email}</span>
