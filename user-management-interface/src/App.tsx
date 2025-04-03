@@ -1,12 +1,13 @@
 import './App.css'
 import H1 from './Components/Atoms/H1'
 import UserCard from './Components/Molecules/UserCard'
-import {Status} from './Components/Molecules/UserCard'
 import CreateUser from './Components/Atoms/CreateUser'
 import Logout from './Components/Atoms/Logout'
 import ToggleTheme from './Components/Atoms/ToggleTheme'
 import Search from './Components/Atoms/Search'
 import Grid from './Components/Organismes/Grid'
+import { Status } from './Components/Molecules/UserCard'
+import users from './assets/Users.json'
 function App() {
   return (
     <>
@@ -24,16 +25,19 @@ function App() {
         <Search/>
       </div>
       <Grid>
-        <UserCard FirstName='John' LastName='Doe' email='john.doe@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
-        <UserCard FirstName='Alice' LastName='Johnson' email='alice.johnson@example.com' dob={new Date('1995-02-10')} status={Status.Active}/>
+        {Object.entries(users).map(([category, userList]) =>
+          Object.entries(userList).map(([key, user]) => (
+            <span key={key}>
+            <UserCard
+              FirstName={user.FirstName}
+              LastName={user.LastName}
+              email={user.Email}
+              dob={new Date(user.Dob)}
+              status={user.Status as Status}
+            />
+            </span>
+          ))
+        )}
       </Grid>
     </>
   )
