@@ -1,22 +1,19 @@
-import Edit from '../Atoms/Edit'
-import Delete from '../Atoms/Delete'
+import Button from '../Atoms/Button';
 import UserInitial from '../Atoms/UserInitial'
 enum Status{
     Locked = 'locked',
     Active = 'active',
 }
-
-type UserCard={
+interface UserCard{
     FirstName:string,
     LastName?:string,
     email:string,
     dob:Date,
     status:Status
 }
-
 const font="font-light text-gray-500";
 
-const UserCard:React.FC<UserCard>=({FirstName,LastName,email,dob,status})=>{
+const UserCard=({FirstName,LastName,email,dob,status}:UserCard)=>{
     const year = dob.getFullYear();
     const month = dob.getMonth()+1;  
     const day = dob.getDate();
@@ -29,8 +26,10 @@ const UserCard:React.FC<UserCard>=({FirstName,LastName,email,dob,status})=>{
             <span className={font}>Status: {status}</span>
             <span className={font}>Date of Birth: {formattedDob}</span>
             <div className='flex justify-end'>
-                <Edit/>
-                <Delete/>
+                <Button className="bg-[#3251D0] text-white border rounded-sm px-4 py-1 mr-4" 
+                        label="Edit"/>
+                <Button className="bg-red-500 text-white border border-red-500 rounded-sm px-4 py-1 mr-2" 
+                        label="Delete"/>
             </div>
         </div>
     )

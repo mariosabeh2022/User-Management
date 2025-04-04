@@ -3,7 +3,7 @@ interface UserInitialProps {
     LastName?: string;
   }
   
-  const UserInitial: React.FC<UserInitialProps> = ({ FirstName, LastName }) => {
+const UserInitial=({ FirstName, LastName }:UserInitialProps) => {
     return(
         <div className="px-6 py-2 flex justify-center items-center">
             <span className="bg-[#3251D0] w-16 h-16 flex items-center justify-center text-white text-xl font-semibold border rounded-full">
