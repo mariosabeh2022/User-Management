@@ -1,7 +1,7 @@
 interface UserInitialProps {
     FirstName: string;
     LastName?: string;
-  }
+}
   
 const UserInitial=({ FirstName, LastName }:UserInitialProps) => {
     return(
