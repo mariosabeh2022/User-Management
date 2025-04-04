@@ -5,7 +5,7 @@ const Navbar=()=>{
   return (
     <div className='bg-[#3251D0]'>
         <nav className='flex justify-between items-center'>
-        <h1 className="px-5 py-5 text-white font-semibold">User Manaement</h1>
+        <h1 className="px-5 py-5 text-white font-semibold">User Management</h1>
           <div className='flex'>
             <Button className="bg-white text-[#3251D0] border rounded-sm px-4 py-2 mr-3" 
                     label="Create user"/>

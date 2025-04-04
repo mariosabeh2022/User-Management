@@ -5,7 +5,7 @@
             "LastName":"Doe",
             "Email":"joe.doe@example.com",
             "Status":"active",
-            "Dob":"1995-2-10"
+            "Dob":"1990-05-15"
         },
         "user2":{
             "FirstName":"Jane",
@@ -37,16 +37,16 @@
             "Dob":"1992-11-30"
         },
         "user6":{
-            "FirstName":"John",
-            "LastName":"Doe",
-            "Email":"joe.doe@example.com",
-            "Status":"active",
-            "Dob":"1995-02-10"
-        },
-        "user7":{
             "FirstName":"David",
             "LastName":"Lee",
             "Email":"david.lee@example.com",
+            "Status":"locked",
+            "Dob":"1987-07-14"
+        },
+        "user7":{
+            "FirstName":"Eve",
+            "LastName":"",
+            "Email":"eve.green@example.com",
             "Status":"active",
             "Dob":"1993-09-21"
         },
