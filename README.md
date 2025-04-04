@@ -16,8 +16,8 @@ This project is about using tailwind to style a single page react application.
 
 ## Project Setup
 1. Clone the repository using this command: git clone https://github.com/mariosabeh2022/Tailwind-Assignment
-2. Navigate to the directory of the project using this command : cd user-management-interface
+2. Navigate to the directory of the project using this command: cd user-management-interface
 3. Run in the terminal: npm install
 4. Run in the terminal: npm install tailwindcss @tailwindcss/vite
 5. Run in the terminal: npm install lucide-react
-6. Run in the terminal: npm run
+6. Run in the terminal: npm run dev
