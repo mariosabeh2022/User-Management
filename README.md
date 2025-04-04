@@ -2,15 +2,15 @@
 This project is about using tailwind to style a single page react application, user management interface.
 
 ## Features
-1.Responsive design
-2.Atomic design structure
-3.JSON formatted user data
+1. Responsive design  
+2. Atomic design structure  
+3. JSON formatted user data  
 
 ## Technologies used
-1.Tailwind css
-2.React
-3.Vite
-4.nodeJS (npm for package management)
+1. Tailwind CSS  
+2. React  
+3. Vite  
+4. Node.js (npm for package management)  
 
 ## Project Setup
 1. Clone the repository using this command: git clone https://github.com/mariosabeh2022/Tailwind-Assignment
