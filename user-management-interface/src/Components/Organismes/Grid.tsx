@@ -12,8 +12,8 @@ const Grid=()=>{
         // Passing the props to the UserCard component
         <UserCard
           key={key}
-          FirstName={user.FirstName}
-          LastName={user.LastName}
+          firstName={user.FirstName}
+          lastName={user.LastName}
           email={user.Email}
           dob={new Date(user.Dob)}
           status={user.Status as Status}

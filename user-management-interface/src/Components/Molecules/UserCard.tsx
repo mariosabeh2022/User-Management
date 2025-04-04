@@ -5,23 +5,23 @@ enum Status{
     Active = 'active',
 }
 interface UserCard{
-    FirstName:string,
-    LastName?:string,
+    firstName:string,
+    lastName?:string,
     email:string,
     dob:Date,
     status:Status
 }
 const font="font-light text-gray-500";
 
-const UserCard=({FirstName,LastName,email,dob,status}:UserCard)=>{
+const UserCard=({firstName,lastName,email,dob,status}:UserCard)=>{
     const year = dob.getFullYear();
     const month = dob.getMonth()+1;  
     const day = dob.getDate();
     const formattedDob = `${year}-${month}-${day}`;
     return(
         <div className='bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start'>
-            <UserInitial FirstName={FirstName} LastName={LastName}/>
-            <h1 className="font-semibold text-2xl text-black-500">{FirstName} {LastName}</h1>
+            <UserInitial firstName={firstName} lastName={lastName}/>
+            <h1 className="font-semibold text-2xl text-black-500">{firstName} {lastName}</h1>
             <span className={font}>Email: {email}</span>
             <span className={font}>Status: {status}</span>
             <span className={font}>Date of Birth: {formattedDob}</span>
