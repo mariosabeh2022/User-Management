@@ -11,7 +11,7 @@ const Navbar=()=>{
                     label="Create user"/>
             <Button className="bg-red-500 text-white border border-red-500 rounded-sm px-3 py-2 mr-3" 
                     label="Logout"/>
-            <Moon className="w-6 h-6 text-white ml-2 mr-6 mt-5 sm:mt-1.5 md:mt-2"/>
+            <Moon className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"/>
           </div>
         </nav>
     </div>
