@@ -11,7 +11,6 @@ interface UserCard{
     dob:Date,
     status:Status
 }
-const font="font-light text-gray-500";
 
 const UserCard=({firstName,lastName,email,dob,status}:UserCard)=>{
     const year=dob.getFullYear();
@@ -27,9 +26,9 @@ const UserCard=({firstName,lastName,email,dob,status}:UserCard)=>{
                         hover:shadow-2xl border border-gray-50 hover:border-gray-200'>
             <UserInitial firstName={firstName} lastName={lastName}/>
             <h1 className="font-semibold text-2xl text-black-500">{firstName} {lastName}</h1>
-            <span className={font}>Email: {email}</span>
-            <span className={font}>Status: {status}</span>
-            <span className={font}>Date of Birth: {formattedDob}</span>
+            <span className="info">Email: {email}</span>
+            <span className="info">Status: {status}</span>
+            <span className="info">Date of Birth: {formattedDob}</span>
             <div className='flex justify-end'>
                 <Button className="bg-[var(--color-primary)] text-white border-[var(--color-primary)]
                                    hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]
