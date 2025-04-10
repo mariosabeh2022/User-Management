@@ -23,16 +23,21 @@ const UserCard=({firstName,lastName,email,dob,status}:UserCard)=>{
     const day=d<10?"0"+d:String(d)
     const formattedDob=`${year}-${month}-${day}`;
     return(
-        <div className='bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start'>
+        <div className='bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
+                        hover:shadow-2xl border border-gray-50 hover:border-gray-200'>
             <UserInitial firstName={firstName} lastName={lastName}/>
             <h1 className="font-semibold text-2xl text-black-500">{firstName} {lastName}</h1>
             <span className={font}>Email: {email}</span>
             <span className={font}>Status: {status}</span>
             <span className={font}>Date of Birth: {formattedDob}</span>
             <div className='flex justify-end'>
-                <Button className="bg-[#3251D0] text-white border rounded-sm px-4 py-1 mr-4" 
+                <Button className="bg-[var(--color-primary)] text-white border-[var(--color-primary)]
+                                   hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]
+                                     border rounded-sm px-4 py-1 mr-4" 
                         label="Edit"/>
-                <Button className="bg-red-500 text-white border border-red-500 rounded-sm px-4 py-1 mr-2" 
+                <Button className="bg-red-500 text-white border border-red-500 
+                                   hover:bg-red-700 hover:border-red-700 
+                                     rounded-sm px-3 py-2 mr-3"
                         label="Delete"/>
             </div>
         </div>
