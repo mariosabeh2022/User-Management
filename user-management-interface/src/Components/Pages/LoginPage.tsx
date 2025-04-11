@@ -1,8 +1,29 @@
 import Input from '../Atoms/Input'
 import Button from '../Atoms/Button'
 import Navbar from '../Organismes/Navbar'
-import { Eye } from 'lucide-react';
+import { Eye,EyeOff } from 'lucide-react'
+import { useState } from 'react'
+// import { useRef } from 'react'
+
 const LoginPage=()=>{
+    // const passRef=useRef<HTMLInputElement>(null)
+    // const eyeRef=useRef<HTMLSpanElement>(null)
+    // const eyeOffRef=useRef<HTMLSpanElement>(null)
+    const [visiblePassword,setVisiblePassword]=useState(false)
+    const togglePassType=()=>{
+        // if(passRef.current){
+        //     const currentType=passRef.current.type
+        //     const nextType=currentType==="password"?"email":"password"
+        //     passRef.current.type=nextType
+        //     const showEye=currentType==="password"
+        //     passRef.current.type=nextType
+        //     if(eyeRef.current&&eyeOffRef.current){
+        //         eyeRef.current.style.display=showEye?'none':'inline'
+        //         eyeOffRef.current.style.display=!showEye?'none':'inline'
+        //     }  
+        // }
+        setVisiblePassword(prev=>!prev)
+    }
     return(
         <>
             <Navbar/>
@@ -22,12 +43,19 @@ const LoginPage=()=>{
                         <div className='mb-3 pt-2'>
                             <span className='text-gray-600 font-semibold mb-1 block'>Password</span>
                             <div className='relative'>
-                                <Input type="password" 
+                                <Input type={visiblePassword?"text":"password"} 
                                        className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
                                                 focus:border-[var(--color-primary)] focus:outline-none" 
                                 />
-                                <span className='absolute right-8 '>
-                                    <Eye color="#808080" className='absolute mr-3 mt-2.5 cursor-pointer'/>
+                                <span className='absolute right-8' onClick={togglePassType}>
+                                    {visiblePassword? 
+                                        <span>
+                                            <EyeOff color="#808080" className='absolute mr-3 mt-2.5 cursor-pointer'/>
+                                        </span>:           
+                                        <span>
+                                            <Eye color="#808080" className='absolute mr-3 mt-2.5 cursor-pointer'/>    
+                                        </span>
+                                    }
                                 </span>
                             </div>
                         </div>          
