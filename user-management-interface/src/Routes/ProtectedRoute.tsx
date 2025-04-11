@@ -1,13 +1,13 @@
 import { PropsWithChildren } from "react";
 
-import { Navigate } from "react-router";
+import LoginPage from "../Components/Pages/LoginPage";
 
 import { useSessionStore } from "../store";
 
 const ProtectedRoute:React.FC<PropsWithChildren>=({children})=>{
     const isLoggedIn = useSessionStore((s)=>s.isLoggedIn)
-    if(isLoggedIn){
-        return <Navigate to="/dashboard"/>
+    if(!isLoggedIn){
+        return <LoginPage/>
     }
     return children;    
 }

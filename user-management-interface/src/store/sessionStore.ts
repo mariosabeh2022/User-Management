@@ -7,7 +7,14 @@ const useSessionStore=create<SessionStore>()(
     persist(
         (set)=>({
             isLoggedIn:false,
-            setIsLoggedIn:(value)=>set(()=>({isLoggedIn:value}))
+            accessToken:null,
+            tokenExpiryDate:0,
+            setIsLoggedIn:(value)=>set(()=>({isLoggedIn:value})),
+            setAccessToken:(value,date)=>set(()=>({
+                accessToken:value,
+                tokenExpiryDate:date
+            })),
+            clearToken:()=>set({isLoggedIn:false,accessToken:null,tokenExpiryDate:0})
         }),
         {
             name:"user-session",

@@ -3,12 +3,12 @@ import Button from '../Atoms/Button'
 import { Eye,EyeOff } from 'lucide-react'
 import { ChangeEvent, useState } from 'react'
 import Span from '../Atoms/Span'
-import LoadingPage from './LoadingPage'
+// import LoadingPage from './LoadingPage'
 import { useSessionStore } from '../../store'
 
 const LoginPage=()=>{
     const [visiblePassword,setVisiblePassword]=useState(false)
-    const [submitted,setSubmitted]=useState(false)
+    // const [submitted,setSubmitted]=useState(false)
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const [showError,setShowError]=useState(false)
@@ -18,20 +18,42 @@ const LoginPage=()=>{
     }
     const handleEmailChange=(e:ChangeEvent<HTMLInputElement>)=>setEmail(e.target.value)
     const handlePassChange=(e:ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)
-    const handleSubmit=(e:React.FormEvent)=>{
+    const handleSubmit=async(e:React.FormEvent)=>{
         e.preventDefault();
         if(!email||!password) setShowError(true)
         else{
-            if(email==="academy@gmail.com"&&password==="academy123"){
-                setIsLoggedIn(true);
-                setSubmitted(true)
-            }
-            else setShowError(true)
+            // try {
+            //     const response = await fetch('/api/login', {
+            //       method: 'POST',
+            //       headers: {
+            //         'Content-Type': 'application/json',
+            //       },
+            //       body: JSON.stringify({
+            //         body: {
+            //           email,
+            //           password,
+            //         },
+            //       }),
+            //     });
+            
+            //     const data = await response.json();
+            
+            //     if (!response.ok) {
+            //       throw new Error(data.message || 'Login failed');
+            //     }
+            
+            //     const { accessToken, expiresIn } = data.result.data;
+            //     return { accessToken, expiresIn };
+            //   } catch (error) {
+            //     console.log(error);
+            //   }
+            setIsLoggedIn(true);
         }
     }
 
-    if(submitted) return <LoadingPage/>
-    else return(
+    // if(submitted) return <LoadingPage/>
+    // else 
+    return(
         <div className="flex flex-col max-w-full items-center justify-center h-screen bg-gray-100">
             <div className='bg-white p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl'>
                 <h1 className='text-2xl font-bold text-gray-700 text-center'>
