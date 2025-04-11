@@ -1,6 +1,6 @@
 interface ButtonProps{
   className:string,
-  label:string
+  label:string,
 }
 
 const Button=({className,label}:ButtonProps)=>{

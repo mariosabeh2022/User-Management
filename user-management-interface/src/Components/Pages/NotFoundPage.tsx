@@ -4,7 +4,7 @@ const NotFoundPage=()=>{
         <div>
             404 Not Found
             <br/>
-            <Link to='/'>Go Back To Users Page</Link>
+            <Link to='/login'>Go Back To Users Page</Link>
         </div>
     )
 }
