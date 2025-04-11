@@ -4,6 +4,7 @@ import { Eye,EyeOff } from 'lucide-react'
 import { ChangeEvent, useState } from 'react'
 import Span from '../Atoms/Span'
 import LoadingPage from './LoadingPage'
+import { useSessionStore } from '../../store'
 
 const LoginPage=()=>{
     const [visiblePassword,setVisiblePassword]=useState(false)
@@ -11,6 +12,7 @@ const LoginPage=()=>{
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const [showError,setShowError]=useState(false)
+    const setIsLoggedIn=useSessionStore((state)=>state.setIsLoggedIn)
     const togglePassType=()=>{
         setVisiblePassword(prev=>!prev)
     }
@@ -19,7 +21,13 @@ const LoginPage=()=>{
     const handleSubmit=(e:React.FormEvent)=>{
         e.preventDefault();
         if(!email||!password) setShowError(true)
-        else setSubmitted(true)
+        else{
+            if(email==="academy@gmail.com"&&password==="academy123"){
+                setIsLoggedIn(true);
+                setSubmitted(true)
+            }
+            else setShowError(true)
+        }
     }
 
     if(submitted) return <LoadingPage/>

@@ -1,8 +1,10 @@
 import { Moon } from "lucide-react";
 import { NavLink } from "react-router";
 import Button from '../Atoms/Button'
+import { useSessionStore } from '../../store'
 
 const Navbar=()=>{
+  const setIsLoggedIn=useSessionStore((state)=>state.setIsLoggedIn)
   return (
     <div className='bg-[var(--color-primary)]'>
         <nav className='flex justify-between items-center'>
@@ -18,12 +20,13 @@ const Navbar=()=>{
                                   border rounded-sm px-4 py-2" 
                       label="Create user"/>
             </NavLink>
-            <NavLink to='/logout' className='mr-3'>
+            <NavLink to='/' className='mr-3' onClick={()=>setIsLoggedIn(false)}>    
               <Button className="bg-red-500 text-white border border-red-500 
                                 hover:bg-red-700 hover:border-red-700 
-                                  rounded-sm px-3 py-2" 
-                      label="Logout"/>
-            </NavLink>
+                                  rounded-sm px-3 py-2 mr-3" 
+                      label="Logout"
+              />
+            </NavLink>           
             <Moon className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"/>
           </div>
         </nav>
