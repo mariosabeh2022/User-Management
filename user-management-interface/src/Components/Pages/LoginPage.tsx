@@ -4,7 +4,7 @@ import { Eye,EyeOff } from 'lucide-react'
 import { ChangeEvent, useState } from 'react'
 import Span from '../Atoms/Span'
 // import LoadingPage from './LoadingPage'
-import { useSessionStore } from '../../store'
+import { useSessionStore } from '../../store/session/sessionStore'
 
 const LoginPage=()=>{
     const [visiblePassword,setVisiblePassword]=useState(false)

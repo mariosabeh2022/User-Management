@@ -2,7 +2,8 @@
 
 @theme{
     --color-primary: #3251D0;
-    --color-primary-dark: #263D9C
+    --color-primary-dark: #263D9C;
+    --color-secondary: #192868
 }
 
 .info{

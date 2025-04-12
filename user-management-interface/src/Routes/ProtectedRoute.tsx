@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 import LoginPage from "../Components/Pages/LoginPage";
 
-import { useSessionStore } from "../store";
+import { useSessionStore } from "../store/session/sessionStore";
 
 const ProtectedRoute:React.FC<PropsWithChildren>=({children})=>{
     const isLoggedIn = useSessionStore((s)=>s.isLoggedIn)
