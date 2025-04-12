@@ -28,7 +28,7 @@ const Navbar = () => {
           </h1>
         </NavLink>
         <div className="flex">
-          <NavLink to="/login" className="mr-3">
+          <NavLink to="" className="mr-3">
             <Button
               className={`bg-white text-[var(--color-primary)]
                                 hover:bg-gray-500 hover:text-[var(--color-primary-dark)]
