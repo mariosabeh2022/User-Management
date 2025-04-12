@@ -18,7 +18,7 @@ const Navbar = () => {
       }
     >
       <nav className="flex justify-between items-center">
-        <NavLink to="/">
+        <NavLink to="">
           <h1
             className={`px-5 py-5 font-semibold
               ${lightTheme ? "text-white" : "text-gray-200"}
