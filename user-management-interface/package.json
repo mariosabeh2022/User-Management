@@ -16,6 +16,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.0",
+    "react-router-dom": "^7.5.0",
     "tailwindcss": "^4.1.1",
     "zustand": "^5.0.3"
   },
@@ -33,6 +34,7 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
-    "vite-plugin-mock": "^3.0.2"
+    "vite-plugin-mock": "^3.0.2",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
