@@ -39,9 +39,7 @@ const UserCard = ({
           label="Edit"
         />
         <Button
-          className="bg-red-500 text-white border border-red-500 
-                                   hover:bg-red-700 hover:border-red-700 
-                                     rounded-sm px-3 py-2 mr-3"
+          className={`border text-white rounded-sm px-3 py-2 mr-3 ${lightTheme?'bg-red-500  border-red-500 hover:bg-red-700':'bg-red-700 border border-red-700 hover:bg-red-500'}`}
           label="Delete"
         />
       </div>
