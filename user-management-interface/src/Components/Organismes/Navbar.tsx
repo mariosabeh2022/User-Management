@@ -1,6 +1,6 @@
 import { Moon } from "lucide-react";
 import { NavLink } from "react-router";
-import Button from "../Atoms/Button";
+import Button from "../Atoms/Button/Button";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useState } from "react";
 

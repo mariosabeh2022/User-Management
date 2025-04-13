@@ -1,18 +1,8 @@
-import Button from '../Atoms/Button';
-import UserInitial from '../Atoms/UserInitial'
-enum Status{
-    Locked='locked',
-    Active='active',
-}
-interface UserCard{
-    firstName:string,
-    lastName?:string,
-    email:string,
-    dob:Date,
-    status:Status
-}
-
-const UserCard=({firstName,lastName,email,dob,status}:UserCard)=>{
+import Button from '../../Atoms/Button/Button';
+import UserInitial from '../../Atoms/UserInitials/UserInitial'
+import { UserCardProps } from '../UserCard/UserCard.type';
+import { Status } from '../UserCard/UserCard.type';
+const UserCard=({firstName,lastName,email,dob,status}:UserCardProps)=>{
     const year=dob.getFullYear();
     const m=dob.getMonth() + 1;
     // Adding 0 if it isn't the last 3 months of the year

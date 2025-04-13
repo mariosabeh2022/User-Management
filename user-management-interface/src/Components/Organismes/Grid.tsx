@@ -1,6 +1,6 @@
-import UserCard from "../Molecules/UserCard";
+import UserCard from "../Molecules/UserCard/UserCard";
 import { Status } from "../Molecules/UserCard";
-import Search from "../Atoms/Search";
+import Search from "../Atoms/Search/Search";
 import { useState, useEffect, ChangeEvent, useCallback } from "react";
 import { useSessionStore } from "../../store/session/sessionStore";
 import LoadingPage from "../Pages/LoadingPage";

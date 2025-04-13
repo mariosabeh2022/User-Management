@@ -1,7 +1,4 @@
-interface SpanPorps{
-  className:string;
-  label:string
-}
+import { SpanPorps } from "./Span.type"
 
 const Span=({className,label}:SpanPorps)=>{
   return (

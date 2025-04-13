@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
 
-export interface SearchType{
+export interface SearchProps{
     onBlur:(e:ChangeEvent<HTMLInputElement>)=>void
 }

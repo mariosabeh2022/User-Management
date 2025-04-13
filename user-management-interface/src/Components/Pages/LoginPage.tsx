@@ -1,8 +1,8 @@
-import Input from "../Atoms/Input";
-import Button from "../Atoms/Button";
+import Input from "../Atoms/Input/Input";
+import Button from "../Atoms/Button/Button";
 import { Eye, EyeOff, Route } from "lucide-react";
 import { ChangeEvent, useState, useEffect } from "react";
-import Span from "../Atoms/Span";
+import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../store/session/sessionStore";

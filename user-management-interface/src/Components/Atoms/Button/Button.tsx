@@ -1,8 +1,4 @@
-interface ButtonProps{
-  className:string,
-  label:string,
-}
-
+import { ButtonProps } from "./Button.type"
 const Button=({className,label}:ButtonProps)=>{
   return (
     <button className={className}>{label}</button>

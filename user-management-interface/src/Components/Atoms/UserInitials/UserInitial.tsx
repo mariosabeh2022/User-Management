@@ -1,8 +1,5 @@
-interface UserInitialProps {
-    firstName:string;
-    lastName?:string;
-}
-  
+import { UserInitialProps } from "./UnserInitials.type";
+
 const UserInitial=({ firstName, lastName }:UserInitialProps) => {
     return(
         <div className="px-6 py-2 flex justify-center items-center">

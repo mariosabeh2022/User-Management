@@ -1,10 +1,4 @@
-import { ChangeEvent } from "react";
-
-interface InputProps{
-    type:string;
-    className:string;
-    onChange:(e:ChangeEvent<HTMLInputElement>)=>void
-  }
+import { InputProps } from "./Input.type"
 const Input=({type,className,onChange}:InputProps)=>{
     return (
         <input type={type}
