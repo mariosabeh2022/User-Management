@@ -35,7 +35,7 @@ const Grid = () => {
       setData(result);
       setFetching(false);
     } catch (e) {
-      console.error("Error fetching users:", e);
+      console.log("Error fetching users:", e);
     }
   },[userToken])
 
@@ -55,7 +55,7 @@ const Grid = () => {
       setData(result);
       setFetching(false);
     } catch (e) {
-      console.error("Error fetching users:", e);
+      console.log("Error fetching users:", e);
     }
   },[searchMessage,userToken])
 

@@ -43,12 +43,12 @@ const LoginPage = () => {
         setIsLoggedIn(true);
         navigate("/dashboard");
       } else {
-        console.warn("Login failed:", result);
-        setShowErrorMessage(result?.message || "Invalid login credentials");
+        console.log("Login failed:", result);
+        setShowErrorMessage(result?.message || "Email Or Password Incorrect");
       }
     } catch (e) {
-      console.error("Login error:", e);
-      setShowErrorMessage("Something went wrong. Try again later.");
+      console.log("Login error:", e);
+      setShowErrorMessage("Something went wrong");
     } finally {
       setSubmitting(false);
     }
