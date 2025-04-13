@@ -6,7 +6,8 @@ import { useState } from "react";
 
 const Navbar = () => {
   const setIsLoggedIn = useSessionStore((state) => state.setIsLoggedIn);
-  // const clearToken=useSessionStore((state)=>state.clearToken())
+  const loggedIn = useSessionStore((state) => state.isLoggedIn);
+  const hasToken = useSessionStore((state) => state.accessToken);
   const [lightTheme, setLightTheme] = useState(true);
   const toggleTheme = () => {
     setLightTheme((theme) => !theme);
@@ -28,9 +29,11 @@ const Navbar = () => {
           </h1>
         </NavLink>
         <div className="flex">
-          <NavLink to="" className="mr-3">
-            <Button
-              className={`bg-white text-[var(--color-primary)]
+          {hasToken && loggedIn ? (
+            <>
+              <NavLink to="" className="mr-3">
+                <Button
+                  className={`bg-white text-[var(--color-primary)]
                                 hover:bg-gray-500 hover:text-[var(--color-primary-dark)]
                                   border ${
                                     lightTheme
@@ -38,28 +41,35 @@ const Navbar = () => {
                                       : "border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-gray-500 hover:text-[var(--color-secondary)]"
                                   } 
                                     rounded-sm px-4 py-2`}
-              label="Create user"
-            />
-          </NavLink>
-          <NavLink
-            to="/"
-            className="mr-3"
-            onClick={() => {
-              setIsLoggedIn(false);
-              localStorage.clear()
-            }}
-          >
-            <Button
-              className="bg-red-500 text-white border border-red-500 
+                  label="Create user"
+                />
+              </NavLink>
+              <NavLink
+                to="/"
+                className="mr-3"
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  localStorage.clear();
+                }}
+              >
+                <Button
+                  className="bg-red-500 text-white border border-red-500 
                                 hover:bg-red-700 hover:border-red-700 
                                   rounded-sm px-3 py-2"
-              label="Logout"
+                  label="Logout"
+                />
+              </NavLink>
+              <Moon
+                className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
+                onClick={toggleTheme}
+              />
+            </>
+          ) : (
+            <Moon
+              className="w-6 h-6 text-white mt-1 ml-2 mr-6 sm:mt-1.6 md:mt-2 lg:mt-1"
+              onClick={toggleTheme}
             />
-          </NavLink>
-          <Moon
-            className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
-            onClick={toggleTheme}
-          />
+          )}
         </div>
       </nav>
     </div>

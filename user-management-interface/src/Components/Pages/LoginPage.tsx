@@ -6,6 +6,7 @@ import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../store/session/sessionStore";
+import Navbar from "../Organismes/Navbar";
 
 const LoginPage = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -58,86 +59,89 @@ const LoginPage = () => {
       navigate("/dashboard");
     }
   }, [isLoggedIn, navigate]);
-  
+
   if (isLoggedIn) {
     <Route to="/dashboard" />;
     setSubmitting(false);
   } else if (submitting) return <LoadingPage />;
   else
     return (
-      <div className="flex flex-col max-w-full items-center justify-center h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl">
-          <h1 className="text-2xl font-bold text-gray-700 text-center">
-            Login
-          </h1>
-          <form
-            action=""
-            className="pt-6"
-            onSubmit={(event) => {
-              event.preventDefault();
-              handleSubmit(email, password);
-            }}
-          >
-            <div className="mb-2">
-              <Span
-                className="text-gray-600 font-semibold mb-1 block"
-                label="Email"
-              />
-              <Input
-                type="email"
-                className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
-                                        focus:border-[var(--color-primary)] focus:outline-none"
-                onChange={handleEmailChange}
-              />
-            </div>
-            <div className="mb-3 pt-2">
-              <Span
-                className="text-gray-600 font-semibold mb-1 block"
-                label="Password"
-              />
-              <div className="relative">
-                <Input
-                  type={visiblePassword ? "text" : "password"}
-                  className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
-                                            focus:border-[var(--color-primary)] focus:outline-none"
-                  onChange={handlePassChange}
+      <>
+        <Navbar />
+        <div className="flex flex-col max-w-full items-center justify-center h-screen bg-gray-100">
+          <div className="bg-white p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl">
+            <h1 className="text-2xl font-bold text-gray-700 text-center">
+              Login
+            </h1>
+            <form
+              action=""
+              className="pt-6"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleSubmit(email, password);
+              }}
+            >
+              <div className="mb-2">
+                <Span
+                  className="text-gray-600 font-semibold mb-1 block"
+                  label="Email"
                 />
-                <span className="absolute right-8" onClick={togglePassType}>
-                  {visiblePassword ? (
-                    <span>
-                      <EyeOff
-                        color="#808080"
-                        className="absolute mr-3 mt-2.5 cursor-pointer"
-                      />
-                    </span>
-                  ) : (
-                    <span>
-                      <Eye
-                        color="#808080"
-                        className="absolute mr-3 mt-2.5 cursor-pointer"
-                      />
-                    </span>
-                  )}
-                </span>
+                <Input
+                  type="email"
+                  className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
+                                        focus:border-[var(--color-primary)] focus:outline-none"
+                  onChange={handleEmailChange}
+                />
               </div>
-            </div>
-            {showErrorMessage && (
-              <Span
-                className="text-red-500 font-semibold text-center block"
-                label={showErrorMessage}
-              />
-            )}
-            <div className="text-center">
-              <Button
-                className="max-w-full border rounded-sm px-5 py-3 mt-2
+              <div className="mb-3 pt-2">
+                <Span
+                  className="text-gray-600 font-semibold mb-1 block"
+                  label="Password"
+                />
+                <div className="relative">
+                  <Input
+                    type={visiblePassword ? "text" : "password"}
+                    className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
+                                            focus:border-[var(--color-primary)] focus:outline-none"
+                    onChange={handlePassChange}
+                  />
+                  <span className="absolute right-8" onClick={togglePassType}>
+                    {visiblePassword ? (
+                      <span>
+                        <EyeOff
+                          color="#808080"
+                          className="absolute mr-3 mt-2.5 cursor-pointer"
+                        />
+                      </span>
+                    ) : (
+                      <span>
+                        <Eye
+                          color="#808080"
+                          className="absolute mr-3 mt-2.5 cursor-pointer"
+                        />
+                      </span>
+                    )}
+                  </span>
+                </div>
+              </div>
+              {showErrorMessage && (
+                <Span
+                  className="text-red-500 font-semibold text-center block"
+                  label={showErrorMessage}
+                />
+              )}
+              <div className="text-center">
+                <Button
+                  className="max-w-full border rounded-sm px-5 py-3 mt-2
                                         bg-[var(--color-primary)] text-white border-[var(--color-primary)]
                                         hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]"
-                label="Login"
-              />
-            </div>
-          </form>
+                  label="Login"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
 };
 export default LoginPage;
