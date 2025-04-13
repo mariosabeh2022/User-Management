@@ -9,8 +9,7 @@ const ProtectedRoute:React.FC<PropsWithChildren>=({children})=>{
     const hasToken = useSessionStore((s)=>s.accessToken)
     useEffect(() => {
         if (!isLoggedIn && !hasToken) {
-          // Directly redirect to login page if not logged in
-          window.location.href = "/login";  // Or use history.push("/login") if you're using useHistory
+          window.location.href = "/login";
         }
       }, [isLoggedIn, hasToken]);
     if(!isLoggedIn && !hasToken){
