@@ -1,5 +1,5 @@
 import { UserInitialProps } from "./UnserInitials.type";
-import { useThemeStore } from "../../../store/theme/ThemeStore";
+import { useThemeStore } from "../../../store/theme/themeStore";
 const UserInitial = ({ firstName, lastName }: UserInitialProps) => {
   const lightTheme = useThemeStore((state) => state.lightTheme);
   return (

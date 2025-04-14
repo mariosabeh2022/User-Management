@@ -1,12 +1,10 @@
 // store/theme/themeStore.ts
 import { create } from "zustand";
-
-type ThemeState = {
-  lightTheme: boolean;
-  toggleTheme: () => void;
-};
-
-export const useThemeStore = create<ThemeState>((set) => ({
+import { ThemeStore } from "./themeStore.type";
+import { persist } from "zustand/middleware";
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
   lightTheme: localStorage.getItem("theme") !== "dark",
   toggleTheme: () =>
     set((state) => {
@@ -14,4 +12,8 @@ export const useThemeStore = create<ThemeState>((set) => ({
       localStorage.setItem("theme", newTheme ? "light" : "dark");
       return { lightTheme: newTheme };
     }),
-}));
+}),
+{
+  name:'user-theme'
+})
+);

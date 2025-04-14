@@ -2,7 +2,7 @@ import Button from "../../Atoms/Button/Button";
 import UserInitial from "../../Atoms/UserInitials/UserInitial";
 import { UserCardProps } from "../UserCard/UserCard.type";
 import { Status } from "../UserCard/UserCard.type";
-import { useThemeStore } from "../../../store/theme/ThemeStore";
+import { useThemeStore } from "../../../store/theme/themeStore";
 const UserCard = ({
   firstName,
   lastName,
