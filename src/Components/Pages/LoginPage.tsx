@@ -68,7 +68,7 @@ const LoginPage = () => {
     return (
       <div
         className={`flex flex-col max-w-full items-center justify-center h-screen ${
-          lightTheme ? " bg-gray-100" : "bg-gray-500"
+          lightTheme ? " bg-gray-400" : "bg-gray-500"
         }`}
       >
         <div
