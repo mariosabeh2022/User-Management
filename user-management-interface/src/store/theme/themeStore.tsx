@@ -1,4 +1,3 @@
-// store/theme/themeStore.ts
 import { create } from "zustand";
 import { ThemeStore } from "./themeStore.type";
 import { persist } from "zustand/middleware";

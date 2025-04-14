@@ -54,12 +54,12 @@ const Navbar = () => {
           </NavLink>
           {lightTheme ? (
             <Moon
-              className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
+              className="cursor-pointer w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
               onClick={toggleTheme}
             />
           ) : (
             <Sun
-              className="w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
+              className="cursor-pointer w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
               onClick={toggleTheme}
             />
           )}
