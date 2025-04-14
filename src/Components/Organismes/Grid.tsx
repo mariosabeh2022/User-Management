@@ -1,7 +1,7 @@
 import UserCard from "../Molecules/UserCard/UserCard";
 import { Status } from "../Molecules/UserCard";
 import Search from "../Atoms/Search/Search";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import LoadingPage from "../Pages/LoadingPage";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
 import { useFetchUser } from "../../hooks/useFetchUser";
@@ -17,18 +17,27 @@ const Grid = () => {
 
   const [searchMessage, setSearchMessage] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
-
   const lightTheme = useThemeStore((state) => state.lightTheme);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchMessage(e.target.value);
+    const value = e.target.value;
+    setSearchMessage(value);
+
+    if (timeoutId.current) {
+      clearTimeout(timeoutId.current);
+    }
+
+    timeoutId.current = setTimeout(() => {
+      if (value.trim() !== "") {
+        fetchUser(value);
+        setHasSearched(true);
+      } else {
+        setHasSearched(false);
+      }
+    }, 500); // Adjust the delay (in milliseconds) as needed
   };
-  const handleBlur = () => {
-    const trimmedMessage = searchMessage.trim();
-    if (trimmedMessage !== "") {
-      fetchUser(trimmedMessage);
-      setHasSearched(true);
-    } else setHasSearched(false);
-  };
+
   const isSearching = hasSearched;
   const displayedUsers = isSearching ? searchedUsers : allUsers;
   const isLoading = isSearching ? fetchingSearch : fetchingAll;
@@ -39,11 +48,7 @@ const Grid = () => {
       <div
         className={`${lightTheme ? "bg-white" : "bg-gray-500"} min-h-screen`}
       >
-        <Search
-          label={searchMessage}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
+        <Search label={searchMessage} onChange={handleChange} />
         {displayedUsers.length == 0 ? (
           <div className="flex flex-col justify-between items-center">
             <div

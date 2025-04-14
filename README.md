@@ -14,7 +14,7 @@ This project is about using tailwind to style a single page react application, z
 - NodeJS (npm for package management)
 - lucid-react package (for theme icons)
 - Zustand for global state management
-- Moch server for api calls
+- Mock server for api calls
 
 ## Project Setup
 1. Clone the repository using this command: git clone https://github.com/mariosabeh2022/Tailwind-Assignment
