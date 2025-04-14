@@ -43,10 +43,11 @@ const LoginPage = () => {
         setAccessToken(result.accessToken, result.expiresIn);
         setIsLoggedIn(true);
         navigate("/dashboard");
-      } else {
+      } else if (data.status === 401){
         console.log("Login failed:", result);
-        setShowErrorMessage(result?.message || "Email Or Password Incorrect");
+        setShowErrorMessage("Email Or Password Incorrect");
       }
+      else {console.log();setShowErrorMessage("Server Error")}
     } catch (e) {
       console.log("Login error:", e);
       setShowErrorMessage("Something went wrong");
