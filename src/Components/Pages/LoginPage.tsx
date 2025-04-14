@@ -6,7 +6,7 @@ import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../store/session/sessionStore";
-
+import { useThemeStore } from "../../store/theme/themeStore";
 const LoginPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [email, setEmail] = useState("");
@@ -15,6 +15,7 @@ const LoginPage = () => {
   const [showErrorMessage, setShowErrorMessage] = useState("");
   const setIsLoggedIn = useSessionStore((state) => state.setIsLoggedIn);
   const setAccessToken = useSessionStore((state) => state.setAccessToken);
+  const lightTheme = useThemeStore((state) => state.lightTheme);
   const navigate = useNavigate();
   const togglePassType = () => {
     setVisiblePassword((prev) => !prev);
@@ -58,15 +59,23 @@ const LoginPage = () => {
       navigate("/dashboard");
     }
   }, [isLoggedIn, navigate]);
-  
+
   if (isLoggedIn) {
     <Route to="/dashboard" />;
     setSubmitting(false);
   } else if (submitting) return <LoadingPage />;
   else
     return (
-      <div className="flex flex-col max-w-full items-center justify-center h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl">
+      <div
+        className={`flex flex-col max-w-full items-center justify-center h-screen ${
+          lightTheme ? " bg-gray-100" : "bg-gray-500"
+        }`}
+      >
+        <div
+          className={`p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl ${
+            lightTheme ? " bg-gray-100" : "bg-gray-900"
+          }`}
+        >
           <h1 className="text-2xl font-bold text-gray-700 text-center">
             Login
           </h1>
@@ -85,8 +94,12 @@ const LoginPage = () => {
               />
               <Input
                 type="email"
-                className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
-                                        focus:border-[var(--color-primary)] focus:outline-none"
+                className={`text-xl border rounded-sm px-3 py-2 w-full 
+                                        focus:outline-none ${
+                                          lightTheme
+                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
+                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
+                                        }`}
                 onChange={handleEmailChange}
               />
             </div>
@@ -98,8 +111,12 @@ const LoginPage = () => {
               <div className="relative">
                 <Input
                   type={visiblePassword ? "text" : "password"}
-                  className="text-xl border border-gray-300 rounded-sm px-3 py-2 w-full 
-                                            focus:border-[var(--color-primary)] focus:outline-none"
+                  className={`text-xl border rounded-sm px-3 py-2 w-full 
+                                        focus:outline-none ${
+                                          lightTheme
+                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
+                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
+                                        }`}
                   onChange={handlePassChange}
                 />
                 <span className="absolute right-8" onClick={togglePassType}>

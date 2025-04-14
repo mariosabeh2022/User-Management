@@ -5,7 +5,6 @@
     --color-primary-dark: #263D9C;
     --color-secondary: #192868
 }
-
 .info{
     @apply text-sm text-gray-600 dark:text-gray-400
 }

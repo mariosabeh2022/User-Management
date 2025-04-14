@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { NavLink } from "react-router";
 import Button from "../Atoms/Button/Button";
 import { useSessionStore } from "../../store/session/sessionStore";
-import { useThemeStore } from "../../store/theme/ThemeStore";
+import { useThemeStore } from "../../store/theme/themeStore";
 const Navbar = () => {
   const clearToken = useSessionStore((state) => state.clearToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
@@ -42,7 +42,6 @@ const Navbar = () => {
             className="mr-3"
             onClick={() => {
               clearToken();
-              localStorage.clear();
             }}
           >
             <Button

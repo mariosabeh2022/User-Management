@@ -5,7 +5,7 @@ import { useState, ChangeEvent } from "react";
 import LoadingPage from "../Pages/LoadingPage";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import { useThemeStore } from "../../store/theme/ThemeStore";
+import { useThemeStore } from "../../store/theme/themeStore";
 
 const Grid = () => {
   const { data: allUsers, fetching: fetchingAll } = useFetchUsers();
