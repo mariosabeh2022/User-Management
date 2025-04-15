@@ -22,7 +22,9 @@ const UserCard = ({
   return (
     <div
       className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
-                        hover:shadow-2xl border hover:border-gray-200 ${lightTheme?'border-gray-50':'border-gray-500'}`}
+                        hover:shadow-2xl border hover:border-gray-200 ${
+                          lightTheme ? "border-gray-50" : "border-gray-500"
+                        }`}
     >
       <UserInitial firstName={firstName} lastName={lastName} />
       <h1 className="font-semibold text-2xl text-black-500">
@@ -33,13 +35,21 @@ const UserCard = ({
       <span className="info">Date of Birth: {formattedDob}</span>
       <div className="flex justify-end">
         <Button
-          className={`${lightTheme?'bg-[var(--color-primary)] border-[var(--color-primary)]':'bg-[var(--color-secondary)] border-[var(--color-secondary)]'} text-white 
+          className={`${
+            lightTheme
+              ? "bg-[var(--color-primary)] border-[var(--color-primary)]"
+              : "bg-[var(--color-secondary)] border-[var(--color-secondary)]"
+          } text-white 
                                    hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]
                                      border rounded-sm px-4 py-1 mr-4`}
           label="Edit"
         />
         <Button
-          className={`border text-white rounded-sm px-3 py-2 mr-3 ${lightTheme?'bg-red-500  border-red-500 hover:bg-red-700':'bg-red-700 border border-red-700 hover:bg-red-500'}`}
+          className={`border text-white rounded-sm px-3 py-2 mr-3 ${
+            lightTheme
+              ? "bg-red-500  border-red-500 hover:bg-red-700"
+              : "bg-red-700 border border-red-700 hover:bg-red-500 hover:border-red-500"
+          }`}
           label="Delete"
         />
       </div>
