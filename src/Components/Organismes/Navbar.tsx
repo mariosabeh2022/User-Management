@@ -4,6 +4,9 @@ import Button from "../Atoms/Button/Button";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
 const Navbar = () => {
+  const hasToken = useSessionStore((state)=>state.accessToken);
+  const tokenExpiry = useSessionStore((state)=>state.tokenExpiryDate);
+  const hasValidToken = tokenExpiry>Math.floor(Date.now()/1000)
   const clearToken = useSessionStore((state) => state.clearToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
@@ -24,6 +27,8 @@ const Navbar = () => {
           </h1>
         </NavLink>
         <div className="flex">
+        {(hasToken && hasValidToken) && (
+          <>
           <NavLink to="" className="mr-3">
             <Button
               className={`bg-white text-[var(--color-primary)]
@@ -51,11 +56,14 @@ const Navbar = () => {
               label="Logout"
             />
           </NavLink>
+          </>
+        )}
           {lightTheme ? (
             <Moon
               className="cursor-pointer w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"
               onClick={toggleTheme}
             />
+            
           ) : (
             <Sun
               className="cursor-pointer w-6 h-6 text-white mt-2 ml-2 mr-6 sm:mt-1.6 md:mt-2"

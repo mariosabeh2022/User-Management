@@ -4,6 +4,7 @@ import { Eye, EyeOff, Route } from "lucide-react";
 import { ChangeEvent, useState, useEffect } from "react";
 import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
+import Navbar from "../Organismes/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
@@ -43,11 +44,13 @@ const LoginPage = () => {
         setAccessToken(result.accessToken, result.expiresIn);
         setIsLoggedIn(true);
         navigate("/dashboard");
-      } else if (data.status === 401){
+      } else if (data.status === 401) {
         console.log("Login failed:", result);
         setShowErrorMessage("Email Or Password Incorrect");
+      } else {
+        console.log();
+        setShowErrorMessage("Server Error");
       }
-      else {console.log();setShowErrorMessage("Server Error")}
     } catch (e) {
       console.log("Login error:", e);
       setShowErrorMessage("Something went wrong");
@@ -67,95 +70,98 @@ const LoginPage = () => {
   } else if (submitting) return <LoadingPage />;
   else
     return (
-      <div
-        className={`flex flex-col max-w-full items-center justify-center h-screen ${
-          lightTheme ? " bg-gray-400" : "bg-gray-500"
-        }`}
-      >
+      <>
+        <Navbar />
         <div
-          className={`p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl ${
-            lightTheme ? " bg-gray-100" : "bg-gray-900"
+          className={`flex flex-col max-w-full items-center justify-center h-screen ${
+            lightTheme ? " bg-gray-400" : "bg-gray-500"
           }`}
         >
-          <h1 className="text-2xl font-bold text-gray-700 text-center">
-            Login
-          </h1>
-          <form
-            action=""
-            className="pt-6"
-            onSubmit={(event) => {
-              event.preventDefault();
-              handleSubmit(email, password);
-            }}
+          <div
+            className={`p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl ${
+              lightTheme ? " bg-gray-100" : "bg-gray-900"
+            }`}
           >
-            <div className="mb-2">
-              <Span
-                className="text-gray-600 font-semibold mb-1 block"
-                label="Email"
-              />
-              <Input
-                type="email"
-                className={`text-xl border rounded-sm px-3 py-2 w-full 
-                                        focus:outline-none ${
-                                          lightTheme
-                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
-                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
-                                        }`}
-                onChange={handleEmailChange}
-              />
-            </div>
-            <div className="mb-3 pt-2">
-              <Span
-                className="text-gray-600 font-semibold mb-1 block"
-                label="Password"
-              />
-              <div className="relative">
+            <h1 className="text-2xl font-bold text-gray-700 text-center">
+              Login
+            </h1>
+            <form
+              action=""
+              className="pt-6"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleSubmit(email, password);
+              }}
+            >
+              <div className="mb-2">
+                <Span
+                  className="text-gray-600 font-semibold mb-1 block"
+                  label="Email"
+                />
                 <Input
-                  type={visiblePassword ? "text" : "password"}
+                  type="email"
                   className={`text-xl border rounded-sm px-3 py-2 w-full 
                                         focus:outline-none ${
                                           lightTheme
                                             ? "border-gray-300 focus:border-[var(--color-primary)]"
                                             : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
                                         }`}
-                  onChange={handlePassChange}
+                  onChange={handleEmailChange}
                 />
-                <span className="absolute right-8" onClick={togglePassType}>
-                  {visiblePassword ? (
-                    <span>
-                      <EyeOff
-                        color="#808080"
-                        className="absolute mr-3 mt-2.5 cursor-pointer"
-                      />
-                    </span>
-                  ) : (
-                    <span>
-                      <Eye
-                        color="#808080"
-                        className="absolute mr-3 mt-2.5 cursor-pointer"
-                      />
-                    </span>
-                  )}
-                </span>
               </div>
-            </div>
-            {showErrorMessage && (
-              <Span
-                className="text-red-500 font-semibold text-center block"
-                label={showErrorMessage}
-              />
-            )}
-            <div className="text-center">
-              <Button
-                className="max-w-full border rounded-sm px-5 py-3 mt-2
+              <div className="mb-3 pt-2">
+                <Span
+                  className="text-gray-600 font-semibold mb-1 block"
+                  label="Password"
+                />
+                <div className="relative">
+                  <Input
+                    type={visiblePassword ? "text" : "password"}
+                    className={`text-xl border rounded-sm px-3 py-2 w-full 
+                                        focus:outline-none ${
+                                          lightTheme
+                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
+                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
+                                        }`}
+                    onChange={handlePassChange}
+                  />
+                  <span className="absolute right-8" onClick={togglePassType}>
+                    {visiblePassword ? (
+                      <span>
+                        <EyeOff
+                          color="#808080"
+                          className="absolute mr-3 mt-2.5 cursor-pointer"
+                        />
+                      </span>
+                    ) : (
+                      <span>
+                        <Eye
+                          color="#808080"
+                          className="absolute mr-3 mt-2.5 cursor-pointer"
+                        />
+                      </span>
+                    )}
+                  </span>
+                </div>
+              </div>
+              {showErrorMessage && (
+                <Span
+                  className="text-red-500 font-semibold text-center block"
+                  label={showErrorMessage}
+                />
+              )}
+              <div className="text-center">
+                <Button
+                  className="max-w-full border rounded-sm px-5 py-3 mt-2
                                         bg-[var(--color-primary)] text-white border-[var(--color-primary)]
                                         hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]"
-                label="Login"
-              />
-            </div>
-          </form>
+                  label="Login"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
 };
 export default LoginPage;
