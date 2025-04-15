@@ -1,4 +1,4 @@
-import { useThemeStore } from "../../store/theme/ThemeStore";
+import { useThemeStore } from "../../store/theme/themeStore";
 const LoadingPage = () => {
   const lightTheme = useThemeStore((state) => state.lightTheme);
   return (

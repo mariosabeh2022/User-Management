@@ -4,7 +4,6 @@ import { Eye, EyeOff, Route } from "lucide-react";
 import { ChangeEvent, useState, useEffect } from "react";
 import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
-import Navbar from "../Organismes/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
@@ -70,8 +69,6 @@ const LoginPage = () => {
   } else if (submitting) return <LoadingPage />;
   else
     return (
-      <>
-        <Navbar />
         <div
           className={`flex flex-col max-w-full items-center justify-center h-screen ${
             lightTheme ? " bg-gray-400" : "bg-gray-500"
@@ -161,7 +158,6 @@ const LoginPage = () => {
             </form>
           </div>
         </div>
-      </>
     );
 };
 export default LoginPage;
