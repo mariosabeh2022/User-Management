@@ -9,6 +9,7 @@ const Navbar = () => {
   const hasValidToken = tokenExpiry > Math.floor(Date.now() / 1000);
   const clearToken = useSessionStore((state) => state.clearToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
+  const clearTheme = useThemeStore((state) => state.clearTheme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
   return (
     <div
@@ -47,6 +48,7 @@ const Navbar = () => {
                 className="mr-3"
                 onClick={() => {
                   clearToken();
+                  clearTheme();                  
                 }}
               >
                 <Button
