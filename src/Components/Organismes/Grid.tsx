@@ -35,7 +35,7 @@ const Grid = () => {
       } else {
         setHasSearched(false);
       }
-    }, 500); // Adjust the delay (in milliseconds) as needed
+    }, 750);
   };
 
   const isSearching = hasSearched;
