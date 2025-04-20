@@ -1,4 +1,3 @@
-import Navbar from '../Organismes/Navbar'
 import Grid from '../Organismes/Grid'
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from '../../store/theme/themeStore';
@@ -12,7 +11,6 @@ const HomePage=()=>{
     if(isLoggedIn&&hasToken&&hasValidToken)
     return(
         <div className={`${lightTheme?'bg-white':'bg-gray-500'} flex flex-col min-h-screen`}>
-            <Navbar/>
             <Grid/>
         </div>
     )
