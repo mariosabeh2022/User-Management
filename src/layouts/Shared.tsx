@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import { ProtectedRoute } from "../../Routes/ProtectedRoute";
-import Navbar from "../Organismes/Navbar";
+import { ProtectedRoute } from "../Routes/ProtectedRoute";
+import Navbar from "../Components/Organismes/Navbar";
 const Shared = () => {
   return (
     <div>

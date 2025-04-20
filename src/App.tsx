@@ -11,7 +11,7 @@ import {
   Route,
 } from "react-router";
 import { AuthenticationRoute } from "./Routes/AuthenticationRoute";
-import Shared from "./Components/layouts/Shared";
+import Shared from "./layouts/Shared";
 
 function App() {
   const [isLoading, setIsloading] = useState(true);
