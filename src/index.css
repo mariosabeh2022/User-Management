@@ -1,10 +1,38 @@
 @import "tailwindcss";
-
-@theme{
-    --color-primary: #3251D0;
-    --color-primary-dark: #263D9C;
-    --color-secondary: #192868
+:root {
+  --color-primary: #3251d0;
+  --color-primary-dark: #192868;
 }
-.info{
-    @apply text-sm text-gray-600 dark:text-gray-400
+.button-base {
+  @apply border text-white rounded-sm;
+}
+.white-button {
+  @apply button-base bg-white text-[var(--color-primary)] border-[var(--color-primary)] px-4 py-2 hover:bg-gray-500 hover:text-[var(--color-primary-dark)];
+}
+.white-button-dark {
+  @apply button-base bg-white text-[var(--color-primary-dark)] border-[var(--color-primary-dark)] px-4 py-2 hover:bg-gray-500 hover:text-[var(--color-primary-dark)];
+}
+.red-button {
+  @apply button-base bg-red-500 border-red-500 hover:bg-red-700 hover:border-red-700;
+}
+.red-button-dark {
+  @apply button-base bg-red-700 border-red-700 hover:bg-red-500 hover:border-red-500;
+}
+.blue-button {
+  @apply button-base bg-[var(--color-primary)] border-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] hover:border-[var(--color-primary-dark)];
+}
+.blue-button-dark {
+  @apply button-base bg-[var(--color-primary-dark)] border-[var(--color-primary-dark)] hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)];
+}
+.user-initials-base {
+  @apply w-16 h-16 flex items-center justify-center text-white text-xl font-semibold border rounded-full;
+}
+.user-initials-base-dark {
+  @apply user-initials-base bg-[var(--color-primary-dark)] border-[var(--color-primary-dark)];
+}
+.user-initials-base-light {
+  @apply user-initials-base bg-[var(--color-primary)] border-[var(--color-primary)];
+}
+.info {
+  @apply text-sm text-gray-600 dark:text-gray-400;
 }

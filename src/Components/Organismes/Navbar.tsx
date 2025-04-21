@@ -14,7 +14,9 @@ const Navbar = () => {
   return (
     <div
       className={
-        lightTheme ? "bg-[var(--color-primary)]" : "bg-[var(--color-secondary)]"
+        lightTheme
+          ? "bg-[var(--color-primary)]"
+          : "bg-[var(--color-primary-dark)]"
       }
     >
       <nav className="flex justify-between items-center">
@@ -32,14 +34,9 @@ const Navbar = () => {
             <>
               <NavLink to="" className="mr-3">
                 <Button
-                  className={`bg-white text-[var(--color-primary)]
-                                hover:bg-gray-500 hover:text-[var(--color-primary-dark)]
-                                  border ${
-                                    lightTheme
-                                      ? "border-[var(--color-primary)]"
-                                      : "border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-gray-500 hover:text-[var(--color-secondary)]"
-                                  } 
-                                    rounded-sm px-4 py-2`}
+                  className={`${
+                    lightTheme ? "white-button" : "white-button-dark"
+                  }`}
                   label="Create user"
                 />
               </NavLink>
@@ -48,14 +45,12 @@ const Navbar = () => {
                 className="mr-3"
                 onClick={() => {
                   clearToken();
-                  clearTheme();                  
+                  clearTheme();
                 }}
               >
                 <Button
                   className={`rounded-sm px-3 py-2 text-white border ${
-                    lightTheme
-                      ? "bg-red-500  border-red-500 hover:bg-red-700 hover:border-red-700"
-                      : "bg-red-700 border border-red-700 hover:bg-red-500 hover:border-red-500"
+                    lightTheme ? "red-button" : "red-button-dark"
                   }`}
                   label="Logout"
                 />

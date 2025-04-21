@@ -35,20 +35,15 @@ const UserCard = ({
       <span className="info">Date of Birth: {formattedDob}</span>
       <div className="flex justify-end">
         <Button
-          className={`${
-            lightTheme
-              ? "bg-[var(--color-primary)] border-[var(--color-primary)]"
-              : "bg-[var(--color-secondary)] border-[var(--color-secondary)]"
-          } text-white 
-                                   hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]
-                                     border rounded-sm px-4 py-1 mr-4`}
+          className={`button-base px-4 py-1 mr-4 ${
+            lightTheme ? "blue-button" : "blue-button-dark"
+          }`}
           label="Edit"
         />
+
         <Button
-          className={`border text-white rounded-sm px-3 py-2 mr-3 ${
-            lightTheme
-              ? "bg-red-500  border-red-500 hover:bg-red-700"
-              : "bg-red-700 border border-red-700 hover:bg-red-500 hover:border-red-500"
+          className={`button-base px-3 py-2 mr-3 ${
+            lightTheme ? "red-button" : "red-button-dark"
           }`}
           label="Delete"
         />

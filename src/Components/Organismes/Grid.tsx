@@ -60,7 +60,7 @@ const Grid = () => {
                 className={`text-2xl font-bold text-center p-2 roundex-2xl ${
                   lightTheme
                     ? "text-[var(--color-primary)]"
-                    : "text-[var(--color-secondary)]"
+                    : "text-[var(--color-primary-dark)]"
                 }`}
               >
                 No User Match Search Criteria

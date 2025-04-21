@@ -101,7 +101,7 @@ const LoginPage = () => {
                                         focus:outline-none ${
                                           lightTheme
                                             ? "border-gray-300 focus:border-[var(--color-primary)]"
-                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
+                                            : "border-gray-500 focus:border-[var(--color-primary-dark)] text-gray-500"
                                         }`}
                   onChange={handleEmailChange}
                 />
@@ -118,7 +118,7 @@ const LoginPage = () => {
                                         focus:outline-none ${
                                           lightTheme
                                             ? "border-gray-300 focus:border-[var(--color-primary)]"
-                                            : "border-gray-500 focus:border-[var(--color-secondary)] text-gray-500"
+                                            : "border-gray-500 focus:border-[var(--color-primary-dark)] text-gray-500"
                                         }`}
                     onChange={handlePassChange}
                   />

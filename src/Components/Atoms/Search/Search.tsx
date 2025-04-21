@@ -9,7 +9,7 @@ const Search = ({ label, onChange }: SearchProps) => {
                 focus:outline-none focus:ring-2 focus:border-transparent ${
                   lightTheme
                     ? "focus:ring-[var(--color-primary)]"
-                    : "focus:ring-[var(--color-secondary)] border-gray-700"
+                    : "focus:ring-[var(--color-primary-dark)] border-gray-700"
                 }  `}
       placeholder="Search users..."
       onChange={onChange}
