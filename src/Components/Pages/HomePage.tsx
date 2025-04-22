@@ -10,7 +10,7 @@ const HomePage=()=>{
     const hasValidToken = tokenExpiry>Math.floor(Date.now()/1000)
     if(isLoggedIn&&hasToken&&hasValidToken)
     return(
-        <div className={`${lightTheme?'bg-white':'bg-gray-500'} flex flex-col min-h-screen`}>
+        <div className={`${lightTheme?'bg-primary':'bg-primary-dark'} flex flex-col min-h-screen`}>
             <Grid/>
         </div>
     )

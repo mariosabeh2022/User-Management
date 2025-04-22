@@ -1,8 +1,10 @@
 import { Link } from "react-router";
+import { useThemeStore } from "../../store/theme/themeStore";
 const NotFoundPage = () => {
+  const lightTheme = useThemeStore((state) => state.lightTheme);
   return (
-    <div className="flex flex-col items-center justify-center max-w-full bg-gray-400 h-screen">
-      <h1 className="text-[var(--color-primary)] font-extrabold text-4xl">
+    <div className={`flex flex-col items-center justify-center max-w-full ${lightTheme?'bg-primary':'bg-primary-dark'} h-screen`}>
+      <h1 className={`${lightTheme?'text-[var(--color-primary)]':'text-[var(--color-primary-dark)]'} font-extrabold text-4xl`}>
         404 Not Found
       </h1>
       <br />

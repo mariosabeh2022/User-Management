@@ -3,6 +3,18 @@
   --color-primary: #3251d0;
   --color-primary-dark: #192868;
 }
+.bg-primary {
+  @apply bg-white
+}
+.bg-primary-dark{
+  @apply bg-gray-500
+}
+.spinner{
+  border-color: var(--color-primary);
+}
+.spinner-dark{
+  border-color: var(--color-primary-dark);
+}
 .white-button {
   @apply border text-white rounded-sm bg-white px-4 py-2 hover:bg-gray-500;
   color: var(--color-primary);
