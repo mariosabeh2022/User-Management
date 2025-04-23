@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="flex">
           {hasToken && hasValidToken && (
             <>
-              <NavLink to="" className="mr-3">
+              <NavLink to="/dashboard/new" className="mr-3">
                 <Button
                   className={`${
                     lightTheme ? "white-button" : "white-button-dark"
