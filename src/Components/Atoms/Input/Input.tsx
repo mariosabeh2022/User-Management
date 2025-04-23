@@ -1,10 +1,20 @@
-import { InputProps } from "./Input.type"
-const Input=({type,className,onChange}:InputProps)=>{
+import React from "react";
+import { InputProps } from "./Input.type";
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ type, className, onChange, onBlur, name, value }, ref) => {
     return (
-        <input type={type}
-               className={className}
-               onChange={onChange}
-        />
-    )
-}
-export default Input
+      <input
+        ref={ref}
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        className={className}
+      />
+    );
+  }
+);
+
+export default Input;
