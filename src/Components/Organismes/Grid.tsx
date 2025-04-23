@@ -3,22 +3,34 @@ import { Status } from "../Molecules/UserCard";
 import Search from "../Atoms/Search/Search";
 import { useState, ChangeEvent, useRef } from "react";
 import LoadingPage from "../Pages/LoadingPage";
-import { useFetchUsers } from "../../hooks/useFetchUsers";
+import getUsers from "../../hooks/getUsers";
+import { useQuery } from "@tanstack/react-query";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useThemeStore } from "../../store/theme/themeStore";
-
+import { useSessionStore } from "../../store/session/sessionStore";
+import { Users } from "../../hooks/useFetchUsers";
 const Grid = () => {
-  const { data: allUsers, fetching: fetchingAll } = useFetchUsers();
+  const userToken = useSessionStore((state) => state.accessToken);
+  const lightTheme = useThemeStore((state) => state.lightTheme);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
+  const [searchMessage, setSearchMessage] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const {
+    data: allUsers,
+    isLoading:fetchingAll
+  } = useQuery<Users[]>({
+    queryKey: ["users"],
+    queryFn: () => getUsers(userToken!),
+    enabled:!!userToken
+  });
+
   const {
     users: searchedUsers,
     fetching: fetchingSearch,
     fetchUser,
   } = useFetchUser();
-
-  const [searchMessage, setSearchMessage] = useState("");
-  const [hasSearched, setHasSearched] = useState(false);
-  const lightTheme = useThemeStore((state) => state.lightTheme);
-  const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -49,7 +61,7 @@ const Grid = () => {
         className={`${lightTheme ? "bg-white" : "bg-gray-500"} min-h-screen`}
       >
         <Search label={searchMessage} onChange={handleChange} />
-        {displayedUsers.length == 0 ? (
+        {displayedUsers?.length == 0 ? (
           <div className="flex flex-col justify-between items-center">
             <div
               className={`flex flex-col justify-center items-center rounded-2xl p-2 ${
@@ -69,7 +81,7 @@ const Grid = () => {
           </div>
         ) : (
           <div className="m-8 grid gap-4 max-w-full grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {displayedUsers.map((user) => (
+            {displayedUsers?.map((user) => (
               <UserCard
                 key={user.id}
                 firstName={user.firstName}

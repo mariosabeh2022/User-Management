@@ -13,8 +13,10 @@ import {
 } from "react-router";
 import { AuthenticationRoute } from "./Routes/AuthenticationRoute";
 import Shared from "./layouts/Shared";
+import { QueryClient,QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
+  const queryClient=new QueryClient();
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -52,7 +54,7 @@ function App() {
     )
   );
   if (isLoading) return <LoadingPage />;
-  else return <RouterProvider router={router} />;
+  else return <QueryClientProvider client={queryClient}><RouterProvider router={router} /></QueryClientProvider>;
 }
 
 export default App;

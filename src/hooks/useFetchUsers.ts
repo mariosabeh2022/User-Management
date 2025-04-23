@@ -1,6 +1,7 @@
-import { useState, useEffect,useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useSessionStore } from "../store/session/sessionStore";
 import { Status } from "../Components/Molecules/UserCard";
+import getUsers from "./getUsers";
 
 export interface Users {
   id: string;
@@ -12,36 +13,23 @@ export interface Users {
 }
 
 interface UseFetchUsersResult {
-  data: Users[];
+  data: Users[] | undefined;
   fetching: boolean;
   fetchUsers: () => Promise<void>;
 }
 
-export function useFetchUsers():UseFetchUsersResult {
-  const [users, setUsers] = useState<Users[]>([]);
-  const [fetching, setFetching] = useState(false);
+export function useFetchUsers(): UseFetchUsersResult {
   const userToken = useSessionStore((state) => state.accessToken);
-  const fetchUsers=useCallback(async () => {
-    setFetching(true);
-    try {
-      const response = await fetch("/api/users", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
-
-      const data = await response.json();
-      const result = data.result.data.users;
-      setUsers(result);
-      setFetching(false);
-    } catch (e) {
-      console.log("Error fetching users:", e);
-    }
-  }, [userToken]);
-  useEffect(()=>{
-    fetchUsers();
-  },[fetchUsers])
-  return{data:users,fetching,fetchUsers}
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn:()=> getUsers(userToken!),
+    enabled: !!userToken,
+  });
+  return {
+    data,
+    fetching: isLoading,
+    fetchUsers: async () => {
+      await refetch();
+    },
+  };
 }

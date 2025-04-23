@@ -36,14 +36,12 @@ const CreateUserForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-lg mx-auto p-6 mt-2 bg-white rounded-xl shadow-md space-y-2"
+      className={`w-lg mx-auto p-6 mt-2 ${
+        lightTheme ? "bg-white" : "bg-gray-300"
+      } rounded-xl shadow-md space-y-2`}
     >
       <div>
-        <h1
-          className={`text-center text-3xl font-semibold mb-6 ${
-            lightTheme ? "text-blue" : "text-blue-dark"
-          }`}
-        >
+        <h1 className="text-center text-3xl font-semibold mb-6">
           Add New User
         </h1>
       </div>
