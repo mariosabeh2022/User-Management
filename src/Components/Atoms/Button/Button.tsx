@@ -1,8 +1,12 @@
-import { ButtonProps } from "./Button.type"
-const Button=({className,label}:ButtonProps)=>{
+import { ButtonProps } from "./Button.type";
+const Button = ({ disabled, className, label }: ButtonProps) => {
   return (
-    <button className={`cursor-pointer ${className}`}>{label}</button>
-  )
-}
-export default Button
-  
+    <button
+      className={`cursor-pointer ${className}`}
+      disabled={disabled}
+    >
+      {label}
+    </button>
+  );
+};
+export default Button;

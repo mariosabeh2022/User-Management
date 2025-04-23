@@ -149,6 +149,7 @@ const LoginPage = () => {
               )}
               <div className="text-center">
                 <Button
+                  type="submit"
                   className="max-w-full border rounded-sm px-5 py-3 mt-2
                                         bg-[var(--color-primary)] text-white border-[var(--color-primary)]
                                         hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]"

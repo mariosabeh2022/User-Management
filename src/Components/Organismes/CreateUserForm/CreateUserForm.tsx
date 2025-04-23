@@ -4,6 +4,7 @@ import { useController, useForm } from "react-hook-form";
 import { useThemeStore } from "../../../store/theme/themeStore";
 import { schema } from "./CreateUserForm_validation";
 import Input from "../../Atoms/Input/Input";
+import Button from "../../Atoms/Button/Button";
 const CreateUserForm = () => {
   const lightTheme = useThemeStore((state) => state.lightTheme);
   type FormData = z.infer<typeof schema>;
@@ -121,15 +122,14 @@ const CreateUserForm = () => {
         )}
       </div>
       <div className="flex justify-center">
-        <button
+        <Button
           type="submit"
           disabled={!isValid}
           className={`button-base px-4 py-2 mt-2 rounded-md font-semibold ${
             lightTheme ? "blue-button" : "blue-button-dark"
           } disabled:opacity-20`}
-        >
-          Submit
-        </button>
+          label="Submit"
+        />
       </div>
     </form>
   );
