@@ -5,10 +5,34 @@ import { useThemeStore } from "../../../store/theme/themeStore";
 import { schema } from "./CreateUserForm_validation";
 import Input from "../../Atoms/Input/Input";
 import Button from "../../Atoms/Button/Button";
-const CreateUserForm = () => {
-  const lightTheme = useThemeStore((state) => state.lightTheme);
-  type FormData = z.infer<typeof schema>;
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { Status } from "../../Molecules/UserCard";
+import { useSessionStore } from "../../../store/session/sessionStore";
+type FormData = z.infer<typeof schema>;
 
+const CreateUserForm = () => {
+  const navigate = useNavigate();
+  const userToken = useSessionStore((state) => state.accessToken);
+  const lightTheme = useThemeStore((state) => state.lightTheme);
+  const createUser = async (userData: FormData) => {
+    console.log("userData being sent to server:", JSON.stringify(userData, null, 2));
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(userData);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Server error:", errorText);
+      throw new Error("Failed to create user");
+    }
+    return response.json();
+  };
   const {
     register,
     handleSubmit,
@@ -21,7 +45,8 @@ const CreateUserForm = () => {
       firstName: "",
       lastName: "",
       email: "",
-      status: "Active",
+      dateOfBirth: "",
+      status: Status.Active,
     },
   });
 
@@ -30,8 +55,18 @@ const CreateUserForm = () => {
     name: "status",
   });
 
+  const mutation = useMutation({
+    mutationFn: createUser,
+    onSuccess: () => {
+      navigate("/dashboard");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const onSubmit = (data: FormData) => {
-    console.log("Submitted:", data);
+    mutation.mutate(data);
   };
   return (
     <form
@@ -99,10 +134,10 @@ const CreateUserForm = () => {
           className={`base-input ${
             lightTheme ? "base-input" : "base-input-dark"
           }`}
-          {...register("dob")}
+          {...register("dateOfBirth")}
         />
-        {errors.dob && (
-          <p className="text-sm text-red-500 mt-1">{errors.dob.message}</p>
+        {errors.dateOfBirth && (
+          <p className="text-sm text-red-500 mt-1">{errors.dateOfBirth.message}</p>
         )}
       </div>
       <div>
@@ -116,7 +151,7 @@ const CreateUserForm = () => {
               lightTheme ? "base-input" : "base-input-dark"
             }`}
           >
-            {["Active", "Locked"].map((status) => (
+            {Object.values(Status).map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>

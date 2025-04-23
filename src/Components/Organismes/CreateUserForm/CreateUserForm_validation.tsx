@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { Status } from "../../Molecules/UserCard";
 export const schema = z.object({
   firstName: z.string().trim().min(1, "First Name is required"),
   lastName: z.string().trim(),
   email: z.string().email("Email is invalid"),
-  status: z.enum(["Active", "Locked"]),
-  dob: z.string().refine((date) => {
+  status: z.nativeEnum(Status),
+  dateOfBirth: z.string().refine((date) => {
     const today = new Date();
     const selectedDate = new Date(date);
     return selectedDate < today;
