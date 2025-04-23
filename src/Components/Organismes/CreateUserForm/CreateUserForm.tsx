@@ -10,13 +10,15 @@ import { useNavigate } from "react-router-dom";
 import { Status } from "../../Molecules/UserCard";
 import { useSessionStore } from "../../../store/session/sessionStore";
 type FormData = z.infer<typeof schema>;
-
 const CreateUserForm = () => {
   const navigate = useNavigate();
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const createUser = async (userData: FormData) => {
-    console.log("userData being sent to server:", JSON.stringify(userData, null, 2));
+    console.log(
+      "userData being sent to server:",
+      JSON.stringify(userData, null, 2)
+    );
     const response = await fetch("/api/users", {
       method: "POST",
       headers: {
@@ -57,11 +59,16 @@ const CreateUserForm = () => {
 
   const mutation = useMutation({
     mutationFn: createUser,
-    onSuccess: () => {
-      navigate("/dashboard");
-    },
     onError: (error) => {
       console.log(error);
+      navigate("/dashboard/new", {
+        state: { message: "Something went wrong" },
+      });
+    },
+    onSuccess: () => {
+      navigate("/dashboard", {
+        state: { message: "User created successfully" },
+      });
     },
   });
 
@@ -137,7 +144,9 @@ const CreateUserForm = () => {
           {...register("dateOfBirth")}
         />
         {errors.dateOfBirth && (
-          <p className="text-sm text-red-500 mt-1">{errors.dateOfBirth.message}</p>
+          <p className="text-sm text-red-500 mt-1">
+            {errors.dateOfBirth.message}
+          </p>
         )}
       </div>
       <div>
@@ -153,7 +162,7 @@ const CreateUserForm = () => {
           >
             {Object.values(Status).map((status) => (
               <option key={status} value={status}>
-                {status}
+                {status[0].toUpperCase() + status.slice(1).toLowerCase()}
               </option>
             ))}
           </select>
