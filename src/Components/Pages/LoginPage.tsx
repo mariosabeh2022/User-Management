@@ -69,96 +69,90 @@ const LoginPage = () => {
   } else if (submitting) return <LoadingPage />;
   else
     return (
+      <div
+        className={`flex flex-col max-w-full items-center justify-center h-screen ${
+          lightTheme ? " bg-gray-400" : "bg-gray-500"
+        }`}
+      >
         <div
-          className={`flex flex-col max-w-full items-center justify-center h-screen ${
-            lightTheme ? " bg-gray-400" : "bg-gray-500"
+          className={`p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl ${
+            lightTheme ? " bg-gray-100" : "bg-gray-900"
           }`}
         >
-          <div
-            className={`p-8 rounded-lg shadow-md w-[400px] hover:shadow-2xl ${
-              lightTheme ? " bg-gray-100" : "bg-gray-900"
-            }`}
+          <h1 className="text-2xl font-bold text-gray-700 text-center">
+            Login
+          </h1>
+          <form
+            action=""
+            className="pt-6"
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSubmit(email, password);
+            }}
           >
-            <h1 className="text-2xl font-bold text-gray-700 text-center">
-              Login
-            </h1>
-            <form
-              action=""
-              className="pt-6"
-              onSubmit={(event) => {
-                event.preventDefault();
-                handleSubmit(email, password);
-              }}
-            >
-              <div className="mb-2">
-                <Span
-                  className="text-gray-600 font-semibold mb-1 block"
-                  label="Email"
-                />
+            <div className="mb-2">
+              <Span
+                className="text-gray-600 font-semibold mb-1 block"
+                label="Email"
+              />
+              <Input
+                type="email"
+                className={`base-input ${
+                  lightTheme ? "base-input" : "base-input-dark"
+                }`}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div className="mb-3 pt-2">
+              <Span
+                className="text-gray-600 font-semibold mb-1 block"
+                label="Password"
+              />
+              <div className="relative">
                 <Input
-                  type="email"
-                  className={`text-xl border rounded-sm px-3 py-2 w-full 
-                                        focus:outline-none ${
-                                          lightTheme
-                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
-                                            : "border-gray-500 focus:border-[var(--color-primary-dark)] text-gray-500"
-                                        }`}
-                  onChange={handleEmailChange}
+                  type={visiblePassword ? "text" : "password"}
+                  className={`base-input ${
+                    lightTheme ? "base-input" : "base-input-dark"
+                  }`}
+                  onChange={handlePassChange}
                 />
+                <span className="absolute right-8" onClick={togglePassType}>
+                  {visiblePassword ? (
+                    <span>
+                      <EyeOff
+                        color="#808080"
+                        className="absolute mr-3 mt-2.5 cursor-pointer"
+                      />
+                    </span>
+                  ) : (
+                    <span>
+                      <Eye
+                        color="#808080"
+                        className="absolute mr-3 mt-2.5 cursor-pointer"
+                      />
+                    </span>
+                  )}
+                </span>
               </div>
-              <div className="mb-3 pt-2">
-                <Span
-                  className="text-gray-600 font-semibold mb-1 block"
-                  label="Password"
-                />
-                <div className="relative">
-                  <Input
-                    type={visiblePassword ? "text" : "password"}
-                    className={`text-xl border rounded-sm px-3 py-2 w-full 
-                                        focus:outline-none ${
-                                          lightTheme
-                                            ? "border-gray-300 focus:border-[var(--color-primary)]"
-                                            : "border-gray-500 focus:border-[var(--color-primary-dark)] text-gray-500"
-                                        }`}
-                    onChange={handlePassChange}
-                  />
-                  <span className="absolute right-8" onClick={togglePassType}>
-                    {visiblePassword ? (
-                      <span>
-                        <EyeOff
-                          color="#808080"
-                          className="absolute mr-3 mt-2.5 cursor-pointer"
-                        />
-                      </span>
-                    ) : (
-                      <span>
-                        <Eye
-                          color="#808080"
-                          className="absolute mr-3 mt-2.5 cursor-pointer"
-                        />
-                      </span>
-                    )}
-                  </span>
-                </div>
-              </div>
-              {showErrorMessage && (
-                <Span
-                  className="text-red-500 font-semibold text-center block"
-                  label={showErrorMessage}
-                />
-              )}
-              <div className="text-center">
-                <Button
-                  type="submit"
-                  className="max-w-full border rounded-sm px-5 py-3 mt-2
+            </div>
+            {showErrorMessage && (
+              <Span
+                className="text-red-500 font-semibold text-center block"
+                label={showErrorMessage}
+              />
+            )}
+            <div className="text-center">
+              <Button
+                type="submit"
+                className="max-w-full border rounded-sm px-5 py-3 mt-2
                                         bg-[var(--color-primary)] text-white border-[var(--color-primary)]
                                         hover:bg-[var(--color-primary-dark)] hover:text-white hover:border-[var(--color-primary-dark)]"
-                  label="Login"
-                />
-              </div>
-            </form>
-          </div>
+                label="Login"
+              />
+            </div>
+          </form>
         </div>
+      </div>
     );
 };
 export default LoginPage;

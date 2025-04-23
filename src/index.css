@@ -44,6 +44,22 @@
   background-color: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
 }
+.base-input {
+  @apply text-xl border border-gray-300 rounded-sm px-3 py-2 w-full focus:outline-none;
+}
+
+.base-input:focus {
+  border-color: var(--color-primary);
+}
+
+.base-input-dark {
+  @apply text-xl border border-gray-500 text-gray-500 rounded-sm px-3 py-2 w-full focus:outline-none;
+}
+
+.base-input-dark:focus {
+  border-color: var(--color-primary-dark);
+}
+
 .user-initials-base {
   @apply w-16 h-16 flex items-center justify-center text-white text-xl font-semibold border rounded-full;
 }

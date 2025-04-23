@@ -53,7 +53,9 @@ const CreateUserForm = () => {
         </label>
         <Input
           type="text"
-          className="text-xl border rounded-sm px-3 py-2 w-full focus:outline-none border-gray-300 focus:border-blue"
+          className={`base-input ${
+            lightTheme ? "base-input" : "base-input-dark"
+          }`}
           {...register("firstName")}
         />
         {errors.firstName && (
@@ -68,7 +70,9 @@ const CreateUserForm = () => {
         </label>
         <Input
           type="text"
-          className="text-xl border rounded-sm px-3 py-2 w-full focus:outline-none border-gray-300 focus:border-blue"
+          className={`base-input ${
+            lightTheme ? "base-input" : "base-input-dark"
+          }`}
           {...register("lastName")}
         />
         {errors.lastName && (
@@ -79,7 +83,9 @@ const CreateUserForm = () => {
         <label className="block mb-1 font-medium text-gray-700">Email</label>
         <Input
           type="email"
-          className="text-xl border rounded-sm px-3 py-2 w-full focus:outline-none border-gray-300 focus:border-blue"
+          className={`base-input ${
+            lightTheme ? "base-input" : "base-input-dark"
+          }`}
           {...register("email")}
         />
         {errors.email && (
@@ -92,7 +98,9 @@ const CreateUserForm = () => {
         </label>
         <Input
           type="date"
-          className="text-xl border rounded-sm px-3 py-2 w-full focus:outline-none border-gray-300 focus:border-blue"
+          className={`base-input ${
+            lightTheme ? "base-input" : "base-input-dark"
+          }`}
           {...register("dob")}
         />
         {errors.dob && (
@@ -106,7 +114,9 @@ const CreateUserForm = () => {
             value={statusField.value}
             onChange={statusField.onChange}
             onBlur={statusField.onBlur}
-            className="text-xl border rounded-sm px-3 py-2 w-full focus:outline-none border-gray-300 focus:border-blue"
+            className={`base-input ${
+              lightTheme ? "base-input" : "base-input-dark"
+            }`}
           >
             {["Active", "Locked"].map((status) => (
               <option key={status} value={status}>
