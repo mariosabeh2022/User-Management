@@ -5,6 +5,7 @@ import LoginPage from "./Components/Pages/LoginPage";
 import NotFoundPage from "./Components/Pages/NotFoundPage";
 import CreateUser from "./Components/Pages/CreateUser";
 import { useEffect, useState } from "react";
+import EditUser from "./Components/Pages/EditUser";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -39,6 +40,7 @@ function App() {
         <Route path="/dashboard" element={<Shared />}>
           <Route path="/dashboard" element={<HomePage />} />
           <Route path="/dashboard/new" element={<CreateUser/>}/>
+          <Route path="/dashboard/edit/:id" element={<EditUser/>}/>
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route

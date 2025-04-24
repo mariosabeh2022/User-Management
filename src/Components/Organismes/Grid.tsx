@@ -9,7 +9,9 @@ import { useFetchUser } from "../../hooks/useFetchUser";
 import { useThemeStore } from "../../store/theme/themeStore";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { Users } from "../../hooks/useFetchUsers";
+import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
 const Grid = () => {
+  const isEdittingOrDeleting=useedit_deleteStore((state)=>state.isChanging)
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
@@ -51,7 +53,7 @@ const Grid = () => {
   const displayedUsers = isSearching ? searchedUsers : allUsers;
   const isLoading = isSearching ? fetchingSearch : fetchingAll;
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading||isEdittingOrDeleting) return <LoadingPage />;
   else
     return (
       <div

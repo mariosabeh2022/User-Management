@@ -5,6 +5,8 @@ import { Status } from "../UserCard/UserCard.type";
 import { useThemeStore } from "../../../store/theme/themeStore";
 import { useSessionStore } from "../../../store/session/sessionStore";
 import getUser from "../../../hooks/getUser";
+import { useNavigate } from "react-router-dom";
+import { useedit_deleteStore } from "../../../store/Edit-delete/edit-deleteStore";
 const UserCard = ({
   userId,
   firstName,
@@ -13,8 +15,10 @@ const UserCard = ({
   dob,
   status,
 }: UserCardProps) => {
+  const navigate = useNavigate();
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const userToken = useSessionStore((state) => state.accessToken);
+  const toggleIsEdittingOrDeleting=useedit_deleteStore((state)=>state.setIsChanging)
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -26,44 +30,49 @@ const UserCard = ({
   const fetchUser = async () => {
     try {
       const fetchedUser = await getUser(userToken!, userId);
-      console.log(fetchedUser);
+      if (fetchedUser) {
+        const id = fetchedUser.id;
+        navigate(`/dashboard/edit/${id}`, { state: { fetchedUser } });
+      }
     } catch (error) {
       console.error("Failed to fetch user:", error);
     }
   };
-
-  return (
-    <div
-      className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
+    return (
+      <div
+        className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
                         hover:shadow-2xl border hover:border-gray-200 ${
                           lightTheme ? "border-gray-50" : "border-gray-500"
                         }`}
-    >
-      <UserInitial firstName={firstName} lastName={lastName} />
-      <h1 className="font-semibold text-2xl text-black-500">
-        {firstName} {lastName}
-      </h1>
-      <span className="info">Email: {email}</span>
-      <span className="info">Status: {status}</span>
-      <span className="info">Date of Birth: {formattedDob}</span>
-      <div className="flex justify-end">
-        <Button
-          className={`button-base px-4 py-1 mr-4 ${
-            lightTheme ? "blue-button" : "blue-button-dark"
-          }`}
-          label="Edit"
-          onClick={fetchUser}
-        />
+      >
+        <UserInitial firstName={firstName} lastName={lastName} />
+        <h1 className="font-semibold text-2xl text-black-500">
+          {firstName} {lastName}
+        </h1>
+        <span className="info">Email: {email}</span>
+        <span className="info">Status: {status}</span>
+        <span className="info">Date of Birth: {formattedDob}</span>
+        <div className="flex justify-end">
+          <Button
+            className={`button-base px-4 py-1 mr-4 ${
+              lightTheme ? "blue-button" : "blue-button-dark"
+            }`}
+            label="Edit"
+            onClick={() => {
+              toggleIsEdittingOrDeleting(true)
+              fetchUser();
+            }}
+          />
 
-        <Button
-          className={`button-base px-3 py-2 mr-3 ${
-            lightTheme ? "red-button" : "red-button-dark"
-          }`}
-          label="Delete"
-        />
+          <Button
+            className={`button-base px-3 py-2 mr-3 ${
+              lightTheme ? "red-button" : "red-button-dark"
+            }`}
+            label="Delete"
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 export default UserCard;
 export { Status };
