@@ -3,7 +3,10 @@ import UserInitial from "../../Atoms/UserInitials/UserInitial";
 import { UserCardProps } from "../UserCard/UserCard.type";
 import { Status } from "../UserCard/UserCard.type";
 import { useThemeStore } from "../../../store/theme/themeStore";
+import { useSessionStore } from "../../../store/session/sessionStore";
+import getUser from "../../../hooks/getUser";
 const UserCard = ({
+  userId,
   firstName,
   lastName,
   email,
@@ -11,6 +14,7 @@ const UserCard = ({
   status,
 }: UserCardProps) => {
   const lightTheme = useThemeStore((state) => state.lightTheme);
+  const userToken = useSessionStore((state) => state.accessToken);
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -19,6 +23,15 @@ const UserCard = ({
   // Adding 0 if it is the first 9 days of the month
   const day = d < 10 ? "0" + d : String(d);
   const formattedDob = `${year}-${month}-${day}`;
+  const fetchUser = async () => {
+    try {
+      const fetchedUser = await getUser(userToken!, userId);
+      console.log(fetchedUser);
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+    }
+  };
+
   return (
     <div
       className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
@@ -39,6 +52,7 @@ const UserCard = ({
             lightTheme ? "blue-button" : "blue-button-dark"
           }`}
           label="Edit"
+          onClick={fetchUser}
         />
 
         <Button

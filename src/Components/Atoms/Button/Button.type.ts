@@ -3,4 +3,5 @@ export interface ButtonProps {
   disabled?: boolean|false;
   className: string;
   label: string;
+  onClick?:()=>void
 }

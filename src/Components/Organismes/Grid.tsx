@@ -17,13 +17,10 @@ const Grid = () => {
   const [searchMessage, setSearchMessage] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
 
-  const {
-    data: allUsers,
-    isLoading:fetchingAll
-  } = useQuery<Users[]>({
+  const { data: allUsers, isLoading: fetchingAll } = useQuery<Users[]>({
     queryKey: ["users"],
     queryFn: () => getUsers(userToken!),
-    enabled:!!userToken
+    enabled: !!userToken,
   });
 
   const {
@@ -84,6 +81,7 @@ const Grid = () => {
             {displayedUsers?.map((user) => (
               <UserCard
                 key={user.id}
+                userId={user.id}
                 firstName={user.firstName}
                 lastName={user.lastName}
                 email={user.email}
