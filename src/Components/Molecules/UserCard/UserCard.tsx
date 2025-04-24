@@ -7,6 +7,8 @@ import { useSessionStore } from "../../../store/session/sessionStore";
 import getUser from "../../../hooks/getUser";
 import { useNavigate } from "react-router-dom";
 import { useedit_deleteStore } from "../../../store/Edit-delete/edit-deleteStore";
+import LoadingPage from "../../Pages/LoadingPage";
+import { useQueryClient } from "@tanstack/react-query";
 const UserCard = ({
   userId,
   firstName,
@@ -15,10 +17,14 @@ const UserCard = ({
   dob,
   status,
 }: UserCardProps) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const userToken = useSessionStore((state) => state.accessToken);
-  const toggleIsEdittingOrDeleting=useedit_deleteStore((state)=>state.setIsChanging)
+  const toggleIsEdittingOrDeleting = useedit_deleteStore(
+    (state) => state.setIsChanging
+  );
+  const isChanging = useedit_deleteStore((state) => state.isChanging);
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -38,41 +44,69 @@ const UserCard = ({
       console.error("Failed to fetch user:", error);
     }
   };
-    return (
-      <div
-        className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
+  const handleDelete = async (userId: string, userToken: string) => {
+    toggleIsEdittingOrDeleting(true);
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        await queryClient.invalidateQueries({queryKey:['users']});
+        alert("User deleted successfully!");
+        toggleIsEdittingOrDeleting(false);
+      } else {
+        console.error("Failed to delete user:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+  if (isChanging) return <LoadingPage />;
+  return (
+    <div
+      className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
                         hover:shadow-2xl border hover:border-gray-200 ${
                           lightTheme ? "border-gray-50" : "border-gray-500"
                         }`}
-      >
-        <UserInitial firstName={firstName} lastName={lastName} />
-        <h1 className="font-semibold text-2xl text-black-500">
-          {firstName} {lastName}
-        </h1>
-        <span className="info">Email: {email}</span>
-        <span className="info">Status: {status}</span>
-        <span className="info">Date of Birth: {formattedDob}</span>
-        <div className="flex justify-end">
-          <Button
-            className={`button-base px-4 py-1 mr-4 ${
-              lightTheme ? "blue-button" : "blue-button-dark"
-            }`}
-            label="Edit"
-            onClick={() => {
-              toggleIsEdittingOrDeleting(true)
-              fetchUser();
-            }}
-          />
+    >
+      <UserInitial firstName={firstName} lastName={lastName} />
+      <h1 className="font-semibold text-2xl text-black-500">
+        {firstName} {lastName}
+      </h1>
+      <span className="info">Email: {email}</span>
+      <span className="info">Status: {status}</span>
+      <span className="info">Date of Birth: {formattedDob}</span>
+      <div className="flex justify-end">
+        <Button
+          className={`button-base px-4 py-1 mr-4 ${
+            lightTheme ? "blue-button" : "blue-button-dark"
+          }`}
+          label="Edit"
+          onClick={() => {
+            toggleIsEdittingOrDeleting(true);
+            fetchUser();
+          }}
+        />
 
-          <Button
-            className={`button-base px-3 py-2 mr-3 ${
-              lightTheme ? "red-button" : "red-button-dark"
-            }`}
-            label="Delete"
-          />
-        </div>
+        <Button
+          className={`button-base px-3 py-2 mr-3 ${
+            lightTheme ? "red-button" : "red-button-dark"
+          }`}
+          label="Delete"
+          onClick={() => {
+            const confirmation = confirm(
+              "Are you sure you want to delete this user?"
+            );
+            if (confirmation) handleDelete(userId, userToken!);
+          }}
+        />
       </div>
-    );
+    </div>
+  );
 };
 export default UserCard;
 export { Status };

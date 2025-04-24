@@ -2,20 +2,12 @@ import Grid from "../Organismes/Grid";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
 import LoginPage from "./LoginPage";
-import { useLocation } from "react-router";
-import { useEffect } from "react";
 const HomePage = () => {
-  const location = useLocation();
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const isLoggedIn = useSessionStore((state) => state.isLoggedIn);
   const hasToken = useSessionStore((state) => state.accessToken);
   const tokenExpiry = useSessionStore((state) => state.tokenExpiryDate);
   const hasValidToken = tokenExpiry > Math.floor(Date.now() / 1000);
-  useEffect(() => {
-    if (location.state?.message) {
-      alert(location.state.message);
-    }
-  }, [location]);
   if (isLoggedIn && hasToken && hasValidToken)
     return (
       <div
