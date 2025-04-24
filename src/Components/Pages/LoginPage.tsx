@@ -1,6 +1,6 @@
 import Input from "../Atoms/Input/Input";
 import Button from "../Atoms/Button/Button";
-import { Eye, EyeOff, Route } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { ChangeEvent, useState, useEffect } from "react";
 import Span from "../Atoms/Span/Span";
 import LoadingPage from "./LoadingPage";
@@ -37,25 +37,23 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
-      const result = data.result.data;
-
-      if (data.status === 200) {
+      const result = data.result.data
+      if (result.accessToken && result.expiresIn) {
         setAccessToken(result.accessToken, result.expiresIn);
         setIsLoggedIn(true);
         navigate("/dashboard");
-      } else if (data.status === 401) {
+      } else if (data.result.data.code === 401) {
         console.log("Login failed:", result);
         setShowErrorMessage("Email Or Password Incorrect");
       } else {
-        console.log();
+        console.log("Unexpected response:", data);
         setShowErrorMessage("Server Error");
       }
     } catch (e) {
       console.log("Login error:", e);
       setShowErrorMessage("Something went wrong");
-    } finally {
-      setSubmitting(false);
     }
+    setSubmitting(false);
   };
   useEffect(() => {
     if (isLoggedIn) {
@@ -63,10 +61,7 @@ const LoginPage = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  if (isLoggedIn) {
-    <Route to="/dashboard" />;
-    setSubmitting(false);
-  } else if (submitting) return <LoadingPage />;
+  if (submitting) return <LoadingPage />;
   else
     return (
       <div
@@ -97,9 +92,7 @@ const LoginPage = () => {
               />
               <Input
                 type="email"
-                className={`base-input ${
-                  lightTheme ? "base-input" : "base-input-dark"
-                }`}
+                className={`base-input ${lightTheme ? "" : "base-input-dark"}`}
                 onChange={handleEmailChange}
               />
             </div>
