@@ -16,16 +16,19 @@ import NotFoundPage from "../../Pages/NotFoundPage";
 type FormData = z.infer<typeof schema>;
 const EditUserForm = () => {
   const location = useLocation();
+  const id = location.state.fetchedUser.id;
   const navigate = useNavigate();
   const fetchedStatus = location.state.fetchedUser.status;
   const otherStatuses = fetchedStatus === "locked" ? "active" : "locked";
   const [submitting, setSubmitting] = useState(false);
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
-  const toggleIsEdittingOrDeleting=useedit_deleteStore((state)=>state.setIsChanging)
+  const toggleIsEdittingOrDeleting = useedit_deleteStore(
+    (state) => state.setIsChanging
+  );
   const UpdateUser = async (userData: FormData) => {
-    const response = await fetch("/api/users/", {
-      method: "POST",
+    const response = await fetch(`/api/users/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userToken}`,
@@ -70,7 +73,7 @@ const EditUserForm = () => {
       });
     },
     onSuccess: () => {
-      toggleIsEdittingOrDeleting(false)
+      toggleIsEdittingOrDeleting(false);
       navigate("/dashboard", {
         state: { message: "User updated successfully" },
       });
