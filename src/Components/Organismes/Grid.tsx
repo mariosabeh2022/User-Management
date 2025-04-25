@@ -5,10 +5,9 @@ import { useState, ChangeEvent, useEffect, useRef } from "react";
 import LoadingPage from "../Pages/LoadingPage";
 import getUsers from "../../hooks/getUsers";
 import { useQuery } from "@tanstack/react-query";
-import { useFetchUser } from "../../hooks/useFetchUser";
 import { useThemeStore } from "../../store/theme/themeStore";
 import { useSessionStore } from "../../store/session/sessionStore";
-import { Users } from "../../hooks/useFetchUsers";
+import { Users } from "../../hooks/Users.type";
 import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
 import { useLocation } from "react-router";
 const Grid = () => {
@@ -28,10 +27,14 @@ const Grid = () => {
   });
 
   const {
-    users: searchedUsers,
-    fetching: fetchingSearch,
-    fetchUser,
-  } = useFetchUser();
+    data: searchedUsers,
+    isLoading: fetchingSearch,
+  } = useQuery<Users[]>({
+    queryKey: ["searchedUsers", searchMessage],
+    queryFn: () => getUsers(userToken!, searchMessage),
+    enabled: !!userToken && hasSearched,
+    refetchOnWindowFocus: false,
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -43,7 +46,6 @@ const Grid = () => {
 
     timeoutId.current = setTimeout(() => {
       if (value.trim() !== "") {
-        fetchUser(value);
         setHasSearched(true);
       } else {
         setHasSearched(false);

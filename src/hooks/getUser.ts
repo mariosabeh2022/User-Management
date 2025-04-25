@@ -1,4 +1,4 @@
-import { Users } from "./useFetchUsers";
+import { Users } from "./Users.type";
 const getUser = async (token: string, id: string): Promise<Users> => {
   const response = await fetch(`/api/users/${id}`, {
     method: "GET",
