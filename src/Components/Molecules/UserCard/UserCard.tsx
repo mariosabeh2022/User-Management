@@ -11,6 +11,8 @@ import LoadingPage from "../../Pages/LoadingPage";
 import { useQueryClient } from "@tanstack/react-query";
 import { Users } from "../../../hooks/Users.type";
 import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import deleteUser from "../../../hooks/deleteUser";
 const UserCard = ({
   userId,
   firstName,
@@ -35,30 +37,28 @@ const UserCard = ({
   // Adding 0 if it is the first 9 days of the month
   const day = d < 10 ? "0" + d : String(d);
   const formattedDob = `${year}-${month}-${day}`;
-  const { data: user, isLoading } = useQuery<Users>({
+  const { data: user } = useQuery<Users>({
     queryKey: ["user", userId],
     queryFn: () => getUser(userToken!, userId),
     enabled: !!userToken && !!userId,
   });
-  const handleDelete = async (userId: string, userToken: string) => {
-    toggleIsEdittingOrDeleting(true);
-    try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        await queryClient.invalidateQueries({ queryKey: ["users"] });
-        alert("User deleted successfully!");
-        toggleIsEdittingOrDeleting(false);
-      } else {
-        console.error("Failed to delete user:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
+  const deleteMutation = useMutation({
+    mutationFn: (userId: string) => deleteUser(userToken!, userId),
+    onError: (error) => {
+      console.log("Error deleting user:", error);
+      alert("Something went wrong while deleting the user.");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      alert("User deleted successfully!");
+      navigate("/dashboard");
+    },
+  });
+
+  const handleDelete = () => {
+    const confirmation = confirm("Are you sure you want to delete this user?");
+    if (confirmation) {
+      deleteMutation.mutate(userId);
     }
   };
   const handleEdit = () => {
@@ -67,7 +67,7 @@ const UserCard = ({
       toggleIsEdittingOrDeleting(true);
     }
   };
-  if (isChanging || isLoading) return <LoadingPage />;
+  if (isChanging) return <LoadingPage />;
   return (
     <div
       className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
@@ -100,7 +100,7 @@ const UserCard = ({
             const confirmation = confirm(
               "Are you sure you want to delete this user?"
             );
-            if (confirmation) handleDelete(userId, userToken!);
+            if (confirmation) handleDelete();
           }}
         />
       </div>
