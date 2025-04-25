@@ -35,11 +35,8 @@ const UserCard = ({
   // Adding 0 if it is the first 9 days of the month
   const day = d < 10 ? "0" + d : String(d);
   const formattedDob = `${year}-${month}-${day}`;
-  const {
-    data: user,
-    isLoading,
-  } = useQuery<Users>({
-    queryKey: ["user",userId],
+  const { data: user, isLoading } = useQuery<Users>({
+    queryKey: ["user", userId],
     queryFn: () => getUser(userToken!, userId),
     enabled: !!userToken && !!userId,
   });
@@ -70,7 +67,7 @@ const UserCard = ({
       toggleIsEdittingOrDeleting(true);
     }
   };
-  if (isChanging||isLoading) return <LoadingPage />;
+  if (isChanging || isLoading) return <LoadingPage />;
   return (
     <div
       className={`bg-mint-300 rounded-lg p-3 shadow-lg flex flex-col justify-start 
