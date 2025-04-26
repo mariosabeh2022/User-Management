@@ -42,6 +42,7 @@ function App() {
           <Route path="/dashboard/new" element={<CreateUser/>}/>
           <Route path="/dashboard/edit/:id" element={<EditUser/>}/>
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/dashboard/edt/:id/*" element={<NotFoundPage />} />
         </Route>
         <Route
           path="/login"
