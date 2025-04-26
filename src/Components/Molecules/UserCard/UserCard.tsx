@@ -29,6 +29,7 @@ const UserCard = ({
     (state) => state.setIsChanging
   );
   const isChanging = useedit_deleteStore((state) => state.isChanging);
+  const setIsChanging= useedit_deleteStore((state)=>state.setIsChanging)
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -44,6 +45,9 @@ const UserCard = ({
   });
   const deleteMutation = useMutation({
     mutationFn: (userId: string) => deleteUser(userToken!, userId),
+    onMutate: () => {
+      setIsChanging(true);
+    },
     onError: (error) => {
       console.log("Error deleting user:", error);
       alert("Something went wrong while deleting the user.");
@@ -53,6 +57,9 @@ const UserCard = ({
       alert("User deleted successfully!");
       navigate("/dashboard");
     },
+    onSettled:()=>{
+        setIsChanging(false);
+    }
   });
 
   const handleDelete = () => {
