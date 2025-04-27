@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 import Button from "../Atoms/Button/Button";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
+import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
 const Navbar = () => {
   const hasToken = useSessionStore((state) => state.accessToken);
   const tokenExpiry = useSessionStore((state) => state.tokenExpiryDate);
@@ -11,6 +12,9 @@ const Navbar = () => {
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const clearTheme = useThemeStore((state) => state.clearTheme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const toggleIsEdittingOrDeleting = useedit_deleteStore(
+    (state) => state.setIsChanging
+  );
   return (
     <div
       className={
@@ -20,11 +24,12 @@ const Navbar = () => {
       }
     >
       <nav className="flex justify-between items-center">
-        <NavLink to="">
+        <NavLink to="/dashboard">
           <h1
             className={`px-5 py-5 font-semibold
               ${lightTheme ? "text-white" : "text-gray-200"}
             `}
+            onClick={()=>toggleIsEdittingOrDeleting(false)}
           >
             User Management
           </h1>

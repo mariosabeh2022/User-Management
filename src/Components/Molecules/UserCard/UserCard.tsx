@@ -29,7 +29,7 @@ const UserCard = ({
     (state) => state.setIsChanging
   );
   const isChanging = useedit_deleteStore((state) => state.isChanging);
-  const setIsChanging= useedit_deleteStore((state)=>state.setIsChanging)
+  const setIsChanging = useedit_deleteStore((state) => state.setIsChanging);
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -57,9 +57,9 @@ const UserCard = ({
       alert("User deleted successfully!");
       navigate("/dashboard");
     },
-    onSettled:()=>{
-        setIsChanging(false);
-    }
+    onSettled: () => {
+      setIsChanging(false);
+    },
   });
 
   const handleDelete = () => {
