@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Status } from "../../Molecules/UserCard";
 export const schema = z.object({
-  firstName: z.string().trim().min(1, "First Name is required"),
+  firstName: z.string().trim().min(3, "First Name too short"),
   lastName: z.string().trim(),
   email: z.string().email("Email is invalid"),
   status: z.nativeEnum(Status),

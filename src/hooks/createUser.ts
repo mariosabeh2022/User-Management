@@ -1,17 +1,16 @@
-import { Users } from "./Users.type";
 import { FormData } from "../Components/Organismes/EditUserForm/EditUserForm";
+import { Users } from "./Users.type";
 import { NavigateFunction } from "react-router-dom";
-const updateUser = async (
-  token: string,
-  id: string,
+const createUser = async (
+  userToken: string,
   userData: FormData,
   navigate: NavigateFunction
 ): Promise<{ user: Users; message: string }> => {
-  const response = await fetch(`/api/users/${id}`, {
-    method: "PUT",
+  const response = await fetch("/api/users", {
+    method: "POST",
     headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userToken}`,
     },
     body: JSON.stringify(userData),
   });
@@ -21,7 +20,7 @@ const updateUser = async (
     throw new Error("User Not Authorised");
   } else if (response.status == 404) {
     navigate("/dashboard");
-    throw new Error("User Not  Found");
+    throw new Error("User Not Found");
   } else if (response.status == 500) {
     alert("Server error");
     throw new Error("Server Error");
@@ -32,4 +31,4 @@ const updateUser = async (
     message: json.result.message as string,
   };
 };
-export default updateUser;
+export default createUser;

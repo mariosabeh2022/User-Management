@@ -11,28 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { Status } from "../../Molecules/UserCard";
 import { useSessionStore } from "../../../store/session/sessionStore";
 import LoadingPage from "../../Pages/LoadingPage";
+import createUser from "../../../hooks/createUser";
 type FormData = z.infer<typeof schema>;
 const CreateUserForm = () => {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
-  const createUser = async (userData: FormData) => {
-    const response = await fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Server error:", errorText);
-      throw new Error("Failed to create user");
-    }
-    return response.json();
-  };
   const {
     register,
     handleSubmit,
@@ -56,16 +41,16 @@ const CreateUserForm = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: createUser,
+    mutationFn: (data: FormData) => createUser(userToken!, data, navigate),
     onError: (error) => {
-      console.log(error);
+      console.log(error.message);
       navigate("/dashboard/new", {
-        state: { message: "Something went wrong" },
+        state: { message: error.message },
       });
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       navigate("/dashboard", {
-        state: { message: "User created successfully" },
+        state: { message: result.message },
       });
     },
   });

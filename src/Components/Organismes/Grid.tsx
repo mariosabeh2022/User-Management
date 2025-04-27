@@ -9,10 +9,10 @@ import { useThemeStore } from "../../store/theme/themeStore";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { Users } from "../../hooks/Users.type";
 import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 const Grid = () => {
   const location = useLocation();
-  const isEdittingOrDeleting=useedit_deleteStore((state)=>state.isChanging)
+  const isEdittingOrDeleting = useedit_deleteStore((state) => state.isChanging);
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
@@ -20,18 +20,17 @@ const Grid = () => {
   const [searchMessage, setSearchMessage] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
 
+  const navigate = useNavigate();
+
   const { data: allUsers, isLoading: fetchingAll } = useQuery<Users[]>({
     queryKey: ["users"],
-    queryFn: () => getUsers(userToken!),
+    queryFn: () => getUsers(userToken!, navigate),
     enabled: !!userToken,
   });
 
-  const {
-    data: searchedUsers,
-    isLoading: fetchingSearch,
-  } = useQuery<Users[]>({
+  const { data: searchedUsers, isLoading: fetchingSearch } = useQuery<Users[]>({
     queryKey: ["searchedUsers", searchMessage],
-    queryFn: () => getUsers(userToken!, searchMessage),
+    queryFn: () => getUsers(userToken!, navigate, searchMessage),
     enabled: !!userToken && hasSearched,
     refetchOnWindowFocus: false,
   });
@@ -61,7 +60,7 @@ const Grid = () => {
       alert(location.state.message);
     }
   }, [location.state]);
-  if (isLoading||isEdittingOrDeleting) return <LoadingPage />;
+  if (isLoading || isEdittingOrDeleting) return <LoadingPage />;
   else
     return (
       <div

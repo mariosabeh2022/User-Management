@@ -51,17 +51,18 @@ const EditUserForm = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: (userData: FormData) => updateUser(userToken!, id, userData),
+    mutationFn: (userData: FormData) =>
+      updateUser(userToken!, id, userData, navigate),
     onError: (error) => {
       console.log(error);
       navigate("/dashboard/new", {
-        state: { message: "Something went wrong" },
+        state: { message: error.message },
       });
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       toggleIsEdittingOrDeleting(false);
       navigate("/dashboard", {
-        state: { message: "User updated successfully" },
+        state: { message: result.message },
       });
     },
   });

@@ -40,21 +40,21 @@ const UserCard = ({
   const formattedDob = `${year}-${month}-${day}`;
   const { data: user } = useQuery<Users>({
     queryKey: ["user", userId],
-    queryFn: () => getUser(userToken!, userId),
+    queryFn: () => getUser(userToken!, userId, navigate),
     enabled: !!userToken && !!userId,
   });
   const deleteMutation = useMutation({
-    mutationFn: (userId: string) => deleteUser(userToken!, userId),
+    mutationFn: (userId: string) => deleteUser(userToken!, userId, navigate),
     onMutate: () => {
       setIsChanging(true);
     },
     onError: (error) => {
       console.log("Error deleting user:", error);
-      alert("Something went wrong while deleting the user.");
+      alert(error.message);
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      alert("User deleted successfully!");
+      alert(result.message);
       navigate("/dashboard");
     },
     onSettled: () => {
