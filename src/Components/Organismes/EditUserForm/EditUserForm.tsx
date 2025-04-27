@@ -12,8 +12,9 @@ import { useSessionStore } from "../../../store/session/sessionStore";
 import { useedit_deleteStore } from "../../../store/Edit-delete/edit-deleteStore";
 import LoadingPage from "../../Pages/LoadingPage";
 import { useLocation } from "react-router-dom";
+import updateUser from "../../../hooks/updateUser";
 import NotFoundPage from "../../Pages/NotFoundPage";
-type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof schema>;
 const EditUserForm = () => {
   const location = useLocation();
   const id = location.state.fetchedUser.id;
@@ -26,22 +27,7 @@ const EditUserForm = () => {
   const toggleIsEdittingOrDeleting = useedit_deleteStore(
     (state) => state.setIsChanging
   );
-  const UpdateUser = async (userData: FormData) => {
-    const response = await fetch(`/api/users/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Server error:", errorText);
-      throw new Error("Failed to update user");
-    }
-    return response.json();
-  };
+
   const {
     register,
     handleSubmit,
@@ -65,7 +51,7 @@ const EditUserForm = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: UpdateUser,
+    mutationFn: (userData: FormData) => updateUser(userToken!, id, userData),
     onError: (error) => {
       console.log(error);
       navigate("/dashboard/new", {
