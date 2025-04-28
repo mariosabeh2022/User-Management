@@ -1,3 +1,4 @@
+import { Status } from "../Components/Molecules/UserCard";
 export interface Users {
   id: string;
   firstName: string;

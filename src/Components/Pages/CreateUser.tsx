@@ -1,9 +1,10 @@
 import { useThemeStore } from "../../store/theme/themeStore";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
-import CreateUserForm from "../Organismes/CreateUserForm/CreateUserForm";
+import UserForm from "../Organismes/UserForm/UserForm";
 const CreateUser = () => {
   const location = useLocation()
+  const isEditMode = location.state && location.state.fetchedUser;
   const lightTheme = useThemeStore((state)=>state.lightTheme);
     useEffect(() => {
       if (location.state?.message) {
@@ -16,7 +17,7 @@ const CreateUser = () => {
         lightTheme ? "bg-primary" : "bg-primary-dark"
       }`}
     >
-      <CreateUserForm/>
+       <UserForm isEditMode={isEditMode} />
     </div>
   );
 };

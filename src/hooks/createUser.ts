@@ -1,6 +1,8 @@
-import { FormData } from "../Components/Organismes/EditUserForm/EditUserForm";
 import { Users } from "./Users.type";
+import { z } from "zod";
+import { schema } from "../Components/Organismes/UserForm/CreateEditUserForm_validationts";
 import { NavigateFunction } from "react-router-dom";
+type FormData = z.infer<typeof schema>;
 const createUser = async (
   userToken: string,
   userData: FormData,
