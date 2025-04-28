@@ -64,7 +64,7 @@ const CreateUserForm = () => {
     return (
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`w-lg mx-auto p-6 mt-2 ${
+        className={`w-lg mx-auto p-6 mt-8 ${
           lightTheme ? "bg-white" : "bg-gray-300"
         } rounded-xl shadow-md space-y-2`}
       >
