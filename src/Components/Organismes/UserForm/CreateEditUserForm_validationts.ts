@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Status } from "../../Molecules/UserCard";
+import { Status } from "../../Molecules/UserCard/UserCard.type";
 export const schema = z.object({
   firstName: z.string().trim().min(3, "First Name too short"),
   lastName: z.string().trim(),

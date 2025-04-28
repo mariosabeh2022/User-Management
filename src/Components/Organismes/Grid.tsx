@@ -1,5 +1,4 @@
 import UserCard from "../Molecules/UserCard/UserCard";
-import { Status } from "../Molecules/UserCard";
 import Search from "../Atoms/Search/Search";
 import { useState, ChangeEvent, useRef } from "react";
 import LoadingPage from "../Pages/LoadingPage";
@@ -84,13 +83,8 @@ const Grid = () => {
           <div className="m-8 grid gap-4 max-w-full grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {displayedUsers?.map((user) => (
               <UserCard
-                key={user.id}
-                userId={user.id}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                email={user.email}
-                status={user.status as Status}
-                dob={new Date(user.dateOfBirth)}
+              key={user.id}
+              user={user} 
               />
             ))}
           </div>

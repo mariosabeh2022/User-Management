@@ -1,27 +1,18 @@
 import Button from "../../Atoms/Button/Button";
 import UserInitial from "../../Atoms/UserInitials/UserInitial";
-import { UserCardProps } from "../UserCard/UserCard.type";
-import { Status } from "../UserCard/UserCard.type";
+import { Users } from "../../../hooks/Users.type";
 import { useThemeStore } from "../../../store/theme/themeStore";
 import { useSessionStore } from "../../../store/session/sessionStore";
-import getUser from "../../../hooks/getUser";
 import { useNavigate } from "react-router-dom";
 import { useedit_deleteStore } from "../../../store/Edit-delete/edit-deleteStore";
 import LoadingPage from "../../Pages/LoadingPage";
 import { useQueryClient } from "@tanstack/react-query";
-import { Users } from "../../../hooks/Users.type";
-import { useQuery } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import deleteUser from "../../../hooks/deleteUser";
 import { toast } from "react-toastify";
-const UserCard = ({
-  userId,
-  firstName,
-  lastName,
-  email,
-  dob,
-  status,
-}: UserCardProps) => {
+const UserCard = ({ user }: { user: Users }) => {
+  const { id, firstName, lastName, email, status, dateOfBirth } = user;
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const lightTheme = useThemeStore((state) => state.lightTheme);
@@ -31,6 +22,7 @@ const UserCard = ({
   );
   const isChanging = useedit_deleteStore((state) => state.isChanging);
   const setIsChanging = useedit_deleteStore((state) => state.setIsChanging);
+  const dob = new Date(dateOfBirth);
   const year = dob.getFullYear();
   const m = dob.getMonth() + 1;
   // Adding 0 if it isn't the last 3 months of the year
@@ -39,11 +31,6 @@ const UserCard = ({
   // Adding 0 if it is the first 9 days of the month
   const day = d < 10 ? "0" + d : String(d);
   const formattedDob = `${year}-${month}-${day}`;
-  const { data: user } = useQuery<Users>({
-    queryKey: ["user", userId],
-    queryFn: () => getUser(userToken!, userId, navigate),
-    enabled: !!userToken && !!userId && isChanging,
-  });
   const deleteMutation = useMutation({
     mutationFn: (userId: string) => deleteUser(userToken!, userId, navigate),
     onMutate: () => {
@@ -54,8 +41,8 @@ const UserCard = ({
       toast.error(error.message);
     },
     onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: ["users"] }); 
-      queryClient.removeQueries({ queryKey: ["user", userId] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.removeQueries({ queryKey: ["user", id] });
       toast.success(result.message);
     },
     onSettled: () => {
@@ -64,13 +51,11 @@ const UserCard = ({
   });
 
   const handleDelete = () => {
-    deleteMutation.mutate(userId);
+    deleteMutation.mutate(id);
   };
   const handleEdit = () => {
-    if (user) {
-      navigate(`/dashboard/edit/${user.id}`, { state: { fetchedUser: user } });
-      toggleIsEdittingOrDeleting(true);
-    }
+    navigate(`/dashboard/edit/${id}`, { state: { fetchedUser: user } });
+    toggleIsEdittingOrDeleting(true);
   };
   if (isChanging) return <LoadingPage />;
   return (
@@ -113,4 +98,3 @@ const UserCard = ({
   );
 };
 export default UserCard;
-export { Status };
