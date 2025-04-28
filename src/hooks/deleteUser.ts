@@ -1,10 +1,9 @@
-import { Users } from "./Users.type";
 import { NavigateFunction } from "react-router-dom";
 const deleteUser = async (
   token: string,
   id: string,
   navigate: NavigateFunction
-): Promise<{ user: Users; message: string }> => {
+): Promise<{ message: string }> => {
   const response = await fetch(`/api/users/${id}`, {
     method: "DELETE",
     headers: {
@@ -26,8 +25,7 @@ const deleteUser = async (
   const json = await response.json();
 
   return {
-    user: json.result.data.user as Users,
-    message: json.result.message as string,
+    message: json.result.message||'User delete successfully',
   };
 };
 export default deleteUser;

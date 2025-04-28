@@ -10,6 +10,7 @@ import { useSessionStore } from "../../store/session/sessionStore";
 import { Users } from "../../hooks/Users.type";
 import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
 import { useLocation, useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 const Grid = () => {
   const location = useLocation();
   const isEdittingOrDeleting = useedit_deleteStore((state) => state.isChanging);
@@ -57,7 +58,7 @@ const Grid = () => {
   const isLoading = isSearching ? fetchingSearch : fetchingAll;
   useEffect(() => {
     if (location.state?.message) {
-      alert(location.state.message);
+      toast.success(location.state.message);
     }
   }, [location.state]);
   if (isLoading || isEdittingOrDeleting) return <LoadingPage />;
@@ -66,7 +67,15 @@ const Grid = () => {
       <div
         className={`${lightTheme ? "bg-white" : "bg-gray-500"} min-h-screen`}
       >
-        <Search label={searchMessage} onChange={handleChange} />
+      <Search label={searchMessage} onChange={handleChange} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        closeOnClick
+        rtl={false}
+        theme="colored"
+      />
         {displayedUsers?.length == 0 ? (
           <div className="flex flex-col justify-between items-center">
             <div
