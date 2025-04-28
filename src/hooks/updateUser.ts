@@ -1,5 +1,5 @@
 import { Users } from "./Users.type";
-import { FormData } from "../Components/Organismes/EditUserForm/EditUserForm";
+import { FormData } from "../Components/Organismes/UserForm/UserForm";
 import { NavigateFunction } from "react-router-dom";
 const updateUser = async (
   token: string,

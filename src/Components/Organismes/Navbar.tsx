@@ -4,7 +4,11 @@ import Button from "../Atoms/Button/Button";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { useThemeStore } from "../../store/theme/themeStore";
 import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
+import { ToastContainer, toast } from "react-toastify";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 const Navbar = () => {
+  const location = useLocation();
   const hasToken = useSessionStore((state) => state.accessToken);
   const tokenExpiry = useSessionStore((state) => state.tokenExpiryDate);
   const hasValidToken = tokenExpiry > Math.floor(Date.now() / 1000);
@@ -15,6 +19,11 @@ const Navbar = () => {
   const toggleIsEdittingOrDeleting = useedit_deleteStore(
     (state) => state.setIsChanging
   );
+  useEffect(() => {
+    if (location.state?.message) {
+      toast.success(location.state.message);
+    }
+  }, [location.state]);
   return (
     <div
       className={
@@ -29,12 +38,20 @@ const Navbar = () => {
             className={`px-5 py-5 font-semibold
               ${lightTheme ? "text-white" : "text-gray-200"}
             `}
-            onClick={()=>toggleIsEdittingOrDeleting(false)}
+            onClick={() => toggleIsEdittingOrDeleting(false)}
           >
             User Management
           </h1>
         </NavLink>
         <div className="flex">
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={true}
+            closeOnClick
+            rtl={false}
+            theme="colored"
+          />
           {hasToken && hasValidToken && (
             <>
               <NavLink to="/dashboard/new" className="mr-3">

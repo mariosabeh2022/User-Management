@@ -1,7 +1,7 @@
 import UserCard from "../Molecules/UserCard/UserCard";
 import { Status } from "../Molecules/UserCard";
 import Search from "../Atoms/Search/Search";
-import { useState, ChangeEvent, useEffect, useRef } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import LoadingPage from "../Pages/LoadingPage";
 import getUsers from "../../hooks/getUsers";
 import { useQuery } from "@tanstack/react-query";
@@ -9,10 +9,9 @@ import { useThemeStore } from "../../store/theme/themeStore";
 import { useSessionStore } from "../../store/session/sessionStore";
 import { Users } from "../../hooks/Users.type";
 import { useedit_deleteStore } from "../../store/Edit-delete/edit-deleteStore";
-import { useLocation, useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router";
+
 const Grid = () => {
-  const location = useLocation();
   const isEdittingOrDeleting = useedit_deleteStore((state) => state.isChanging);
   const userToken = useSessionStore((state) => state.accessToken);
   const lightTheme = useThemeStore((state) => state.lightTheme);
@@ -56,26 +55,13 @@ const Grid = () => {
   const isSearching = hasSearched;
   const displayedUsers = isSearching ? searchedUsers : allUsers;
   const isLoading = isSearching ? fetchingSearch : fetchingAll;
-  useEffect(() => {
-    if (location.state?.message) {
-      toast.success(location.state.message);
-    }
-  }, [location.state]);
   if (isLoading || isEdittingOrDeleting) return <LoadingPage />;
   else
     return (
       <div
         className={`${lightTheme ? "bg-white" : "bg-gray-500"} min-h-screen`}
       >
-      <Search label={searchMessage} onChange={handleChange} />
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
-        closeOnClick
-        rtl={false}
-        theme="colored"
-      />
+        <Search label={searchMessage} onChange={handleChange} />
         {displayedUsers?.length == 0 ? (
           <div className="flex flex-col justify-between items-center">
             <div

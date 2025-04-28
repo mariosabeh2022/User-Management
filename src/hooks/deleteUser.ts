@@ -25,7 +25,7 @@ const deleteUser = async (
   const json = await response.json();
 
   return {
-    message: json.result.message||'User delete successfully',
+    message: json.result.message as string,
   };
 };
 export default deleteUser;
