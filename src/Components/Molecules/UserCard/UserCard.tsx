@@ -42,7 +42,7 @@ const UserCard = ({
   const { data: user } = useQuery<Users>({
     queryKey: ["user", userId],
     queryFn: () => getUser(userToken!, userId, navigate),
-    enabled: !!userToken && !!userId,
+    enabled: !!userToken && !!userId && isChanging,
   });
   const deleteMutation = useMutation({
     mutationFn: (userId: string) => deleteUser(userToken!, userId, navigate),
@@ -54,9 +54,9 @@ const UserCard = ({
       toast.error(error.message);
     },
     onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] }); 
+      queryClient.removeQueries({ queryKey: ["user", userId] });
       toast.success(result.message);
-      navigate("/dashboard");
     },
     onSettled: () => {
       setIsChanging(false);
@@ -64,10 +64,7 @@ const UserCard = ({
   });
 
   const handleDelete = () => {
-    const confirmation = confirm("Are you sure you want to delete this user?");
-    if (confirmation) {
-      deleteMutation.mutate(userId);
-    }
+    deleteMutation.mutate(userId);
   };
   const handleEdit = () => {
     if (user) {
