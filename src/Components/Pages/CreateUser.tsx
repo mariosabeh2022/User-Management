@@ -12,7 +12,7 @@ const CreateUser = () => {
     }, [location]);
   return (
     <div
-      className={`flex flex-col max-w-full items-center justify-center min-h-screen ${
+      className={`flex flex-col max-w-full items-center min-h-screen ${
         lightTheme ? "bg-primary" : "bg-primary-dark"
       }`}
     >
