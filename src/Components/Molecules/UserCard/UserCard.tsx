@@ -17,9 +17,6 @@ const UserCard = ({ user }: { user: Users }) => {
   const navigate = useNavigate();
   const lightTheme = useThemeStore((state) => state.lightTheme);
   const userToken = useSessionStore((state) => state.accessToken);
-  const toggleIsEdittingOrDeleting = useedit_deleteStore(
-    (state) => state.setIsChanging
-  );
   const isChanging = useedit_deleteStore((state) => state.isChanging);
   const setIsChanging = useedit_deleteStore((state) => state.setIsChanging);
   const dob = new Date(dateOfBirth);
@@ -55,7 +52,7 @@ const UserCard = ({ user }: { user: Users }) => {
   };
   const handleEdit = () => {
     navigate(`/dashboard/edit/${id}`, { state: { fetchedUser: user } });
-    toggleIsEdittingOrDeleting(true);
+    setIsChanging(true);
   };
   if (isChanging) return <LoadingPage />;
   return (
